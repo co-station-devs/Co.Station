@@ -1,0 +1,24 @@
+@import "../../../_shared/styles/variables";
+
+.profile {
+  padding: 50px $padding 20px;
+
+  .profile-name {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .profile-sport {
+    font-size: 0.9em;
+    color: #CBCDD6;
+  }
+}
+
+.mat-tab-labels{
+  padding: 0 $padding;
+}
+
+.mat-tab-body-content{
+  padding: 10px $padding;
+}
+

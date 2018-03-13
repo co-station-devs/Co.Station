@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Start server",
+            "program": "${workspaceFolder}\\server.js",
+            "env": {
+                "MONGO_URL" : "mongodb://heroku_q058k69l:n0q3c9qqn2ol8p45rjpv34lhte@ds211289.mlab.com:11289/heroku_q058k69l"
+            }
+        }
+    ]
+}

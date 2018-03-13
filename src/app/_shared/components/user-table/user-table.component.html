@@ -1,0 +1,44 @@
+<div>
+
+  <mat-form-field>
+    <input matInput placeholder="Filter" #input>
+  </mat-form-field>
+
+
+  <div
+    *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      GitHub's API rate limit has been reached. It will be reset in one minute.
+    </div>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" class="example-table"
+             matSort matSortActive="date_created" matSortDisableClear matSortDirection="asc">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.fullName }}</mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="date_created">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header
+                       disableClear="true">
+        Created
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.date_created | date }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="limit" [pageSizeOptions]="[5,10,20,50,100]">
+  </mat-paginator>
+</div>
