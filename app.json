@@ -1,0 +1,22 @@
+{
+  "name": "co.station",
+  "description": "Co.Station dev application",
+  "keywords": [
+    "MEAN",
+    "Angular",
+    "Node",
+    "MongoDB",
+    "mLab"
+  ],
+  "repository": "https://glennlatomme.visualstudio.com/_git/Co.Station",
+  "success_url": "/",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    "mongolab"
+  ]
+}

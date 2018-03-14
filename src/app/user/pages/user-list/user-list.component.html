@@ -1,0 +1,28 @@
+<div>
+  <div>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="userList" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fullName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> # Email</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row [routerLink]="row._id" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+</div>
+<button mat-fab [routerLink]="'create'"><mat-icon>add</mat-icon></button>

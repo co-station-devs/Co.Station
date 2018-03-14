@@ -1,0 +1,6 @@
+<form *ngIf="user$ | async as user" (ngSubmit)="onSubmit(user)">
+  <app-user-form-general [user]="user"></app-user-form-general>
+
+  <button type="submit" mat-button>Submit</button>
+  <pre>{{user | json: 2}}</pre>
+</form>

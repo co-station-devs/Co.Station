@@ -1,0 +1,40 @@
+@import '~@angular/material/theming';
+@import '_shared/styles/variables';
+
+h1 {
+  margin-left: 8px;
+}
+
+mat-sidenav {
+  min-width: $sidebar-width;
+  &.mat-drawer {
+    background: transparent;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-mobile mat-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+mat-sidenav-container {
+  flex: 1;
+}
+
+.is-mobile mat-sidenav-container {
+  flex: 1 0 auto;
+}
+
+mat-sidenav-content{
+  padding: 10px;
+}

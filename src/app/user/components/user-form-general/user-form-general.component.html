@@ -1,0 +1,50 @@
+<div fxLayoutGap="10px" fxLayout="column">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>General</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="First Name" id="firstName" [(ngModel)]="user.firstName" name="firstName"/>
+      </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Last Name" id="lastName" [(ngModel)]="user.lastName" name="lastName"/>
+      </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Email" id="email" [(ngModel)]="user.email" name="email" type="email"/>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card *ngFor="let address of user.addresses">
+    <mat-card-header>
+      <mat-card-title>Address</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Description" [(ngModel)]="address.description" name="description"/>
+      </mat-form-field>  <mat-form-field class="fullWidth">
+        <input matInput placeholder="Street"[(ngModel)]="address.street" name="street"/>
+      </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Number" [(ngModel)]="address.number" name="number"/>
+      </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="City"  [(ngModel)]="address.city" name="city"/>
+      </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="State" [(ngModel)]="address.state" name="state"/>
+      </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput #postalcode maxlength="4" placeholder="Postal Code" id="postalcode"
+               [(ngModel)]="address.postalcode" name="postalcode"/>
+        <mat-hint align="end">
+          {{postalcode.value.length}} / 4
+        </mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+</div>
