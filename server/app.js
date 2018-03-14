@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Fetch url from env
-let mongoURL = process.env.MONGODB_URI || process.env.MONGO_URL;
+let mongoURL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://0.0.0.0';
 
 // Monogo connection
 mongoose.Promise = require('bluebird');
@@ -24,14 +24,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // resources
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Api
 app.use('/api/v1/users', require('./user/users.route').users);
 
 // Client
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, '/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
 
