@@ -12,7 +12,7 @@ export class UserListComponent implements OnInit {
   userList: MatTableDataSource<User>;
   displayedColumns = ['id', 'email'];
 
-  constructor(public userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
