@@ -11,9 +11,9 @@
   "scripts": {
     "ng": "ng",
     "start": "node server",
-    "start:dev": "mongod --dbpath D:\\data\\db",
+    "start:dev": "mongod --dbpath data",
     "build": "ng build",
-    "postinstall": "ng build --env=prod",
+    "heroku-postbuild": "ng build --env=prod",
     "dev": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
