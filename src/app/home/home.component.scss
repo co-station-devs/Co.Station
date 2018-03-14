@@ -1,0 +1,23 @@
+:host {
+  height: 90vh;
+}
+
+.chat {
+  border-radius: 20px;
+  padding: 5px 20px;
+
+  mat-icon{
+    bottom: -6px;
+    position: relative;
+  }
+
+  input {
+    width: calc(100% - 30px);
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    &:focus {
+      outline: none;
+    }
+  }
+}

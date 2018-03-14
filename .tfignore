@@ -1,0 +1,11 @@
+\.idea
+\.vscode
+\dist
+\docs
+\reports
+\node_modules
+npm-debug.log
+\src\*.js
+\reports
+\coverage
+\tmp
