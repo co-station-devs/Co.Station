@@ -1,22 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserDetailComponent } from './user-detail.component';
+import { MaterialModule } from '../../../material.module';
+import { RouterModule,  ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+
+
 
 describe('UserDetailComponent', () => {
   let component: UserDetailComponent;
-  let fixture: ComponentFixture<UserDetailComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UserDetailComponent ]
-    })
-    .compileComponents();
-  }));
+  let router: ActivatedRoute;
+  let userService: UserService;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserDetailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new UserDetailComponent(router, userService);
   });
 
   it('should create', () => {

@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
   constructor() {
     for (let i = 0; i < 10; i++) {
+      // add some default conversation
       this.conversation.push(
         new Chat(
           '',

@@ -1,22 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserFormGeneralComponent } from './user-form-general.component';
+import { MaterialModule } from '../../../material.module';
+import { FormsModule } from '@angular/forms';
 
 describe('UserFormGeneralComponent', () => {
   let component: UserFormGeneralComponent;
   let fixture: ComponentFixture<UserFormGeneralComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UserFormGeneralComponent ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserFormGeneralComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new UserFormGeneralComponent();
   });
 
   it('should create', () => {

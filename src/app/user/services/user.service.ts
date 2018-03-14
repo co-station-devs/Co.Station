@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class UserService extends BaseService<User> {
+export class UserService extends BaseService<User> implements IUserService {
   service_url = `${this.api_url}api/v1/users`;
   type = new User();
 
