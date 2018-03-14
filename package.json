@@ -13,7 +13,7 @@
     "start": "node server",
     "start:dev": "mongod --dbpath D:\\data\\db",
     "build": "ng build",
-    "heroku-prebuild": "ng build --env=prod",
+    "postinstall": "ng build --env=prod",
     "dev": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
