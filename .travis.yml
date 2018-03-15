@@ -9,5 +9,7 @@ deploy:
   on:
     repo: cskiwi/Co.Station
     branch: develop
-script:
+before_install:
+  - npm install -g codecov
+after_success:
   - codecov
