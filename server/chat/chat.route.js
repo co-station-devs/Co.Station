@@ -1,18 +1,18 @@
 const express = require('express');
-const UserController = require('./user.controller');
-const user = express.Router();
+const ChatController = require('./chat.controller');
+const chats = express.Router();
 
-/* GET users listing. */
-user.get('/', UserController.list);
+/* GET chats listing. */
+chats.get('/', ChatController.list);
 
-user.get('/:id', UserController.read);
+chats.get('/:id', ChatController.read);
 
-user.post('/', UserController.create);
+chats.post('/', ChatController.create);
 
-user.put('/', UserController.update);
+chats.put('/', ChatController.update);
 
-user.delete('/:id', UserController.del);
+chats.delete('/:id', ChatController.del);
 
 
-module.exports.users = user;
+module.exports.chats = chats;
 

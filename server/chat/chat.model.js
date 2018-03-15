@@ -3,7 +3,8 @@ const mongoosePaginate = require('mongoose-paginate');
 
 
 const chatSchema = new mongoose.Schema({
-  user: {type: Schema.Types.ObjectId, ref: 'User'},
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  type: String,
   message: String,
 });
 

@@ -1,11 +1,9 @@
-const User = require('./user.model');
-const UserService = require('./user.service');
+const Chat = require('./chat.model');
+const ChatService = require('./chat.service');
 
 exports.list = async function (req, res, next) {
 
   // Check the existence of the query parameters, If the exists doesn't exists assign a default value
-
-
   const filter = {
     page: req.query.page ? parseInt(req.query.page) + 1 : 1, // Front works 0 based, backend 1 based
     limit: req.query.limit ? parseInt(req.query.limit) : 10,
@@ -17,17 +15,19 @@ exports.list = async function (req, res, next) {
     filter.sort[req.query.sort] = req.query.direction;
   }
 
-  // filter out basic
-  const query = req.query.query ? {firstName: req.query.query} : {};
-
+  const query = {};
+  // filter out chat for user
+  if (req.query.user) {
+    query.user = req.query.user
+  }
 
   try {
 
-    const items = await UserService.list(query, filter);
+    const items = await ChatService.list(query, filter);
 
     // Return the list with the appropriate HTTP Status Code and Message.
 
-    return res.status(200).json({status: 200, data: items, message: `Succesfully Users Recieved`});
+    return res.status(200).json({status: 200, data: items, message: `Succesfully Chats Recieved`});
 
   } catch (e) {
 
@@ -44,13 +44,13 @@ exports.create = async function (req, res, next) {
   try {
 
     // Calling the Service function with the new object from the Request Body
-    const createdModel = await UserService.create(req.body);
-    return res.status(201).json({status: 201, data: createdModel, message: `Succesfully Created User`})
+    const createdModel = await ChatService.create(req.body);
+    return res.status(201).json({status: 201, data: createdModel, message: `Succesfully Created Chat`})
   } catch (e) {
 
     //Return an Error Response Message with Code and the Error Message.
 
-    return res.status(400).json({status: 400, message: `User Creation was Unsuccesfull`})
+    return res.status(400).json({status: 400, message: `Chat Creation was Unsuccesfull`})
   }
 };
 
@@ -59,8 +59,8 @@ exports.read = async function (req, res, next) {
   const id = req.params.id;
 
   try {
-    const item = await UserService.read(id);
-    return res.status(200).json({status: 200, data: item, message: `Succesfully User Recieved`})
+    const item = await ChatService.read(id);
+    return res.status(200).json({status: 200, data: item, message: `Succesfully Chat Recieved`})
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }
@@ -76,8 +76,8 @@ exports.update = async function (req, res, next) {
   const id = req.body._id;
 
   try {
-    const updatedUser = await UserService.update(req.body);
-    return res.status(200).json({status: 200, data: updatedUser, message: `Succesfully Updated User`})
+    const updatedChat = await ChatService.update(req.body);
+    return res.status(200).json({status: 200, data: updatedChat, message: `Succesfully Updated Chat`})
   } catch (e) {
     return res.status(400).json({status: 400., message: e.message})
   }
@@ -87,8 +87,8 @@ exports.del = async function (req, res, next) {
   const id = req.params.id;
 
   try {
-    const deleted = await UserService.delete(id);
-    return res.status(204).json({status: 204, message: `Succesfully User Deleted`})
+    const deleted = await ChatService.delete(id);
+    return res.status(204).json({status: 204, message: `Succesfully Chat Deleted`})
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }

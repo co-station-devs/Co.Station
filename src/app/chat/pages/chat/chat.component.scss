@@ -6,15 +6,17 @@ $spacing-between-chat-input: 20px;
   display: block;
   padding: 10px;
 
-  p {
+  div {
     margin-top: 5px;
     border-radius: 10px;
     padding: 8px;
     border: 1px solid #ddd;
     color: #343434;
     margin: 0 0 20px 20%;
+    text-align: right;
 
     &.other {
+      text-align: left;
       color: #fff;
       margin: 0 20% 20px 0;
       background-color: #387ef5;

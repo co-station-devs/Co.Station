@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Chat } from '../../_shared/models/chat.model';
 import { User } from '../../user/models/user.model';
 import { BaseService } from '../../_shared/services/base.service';
 import { HttpClient } from '@angular/common/http';
+import { Chat } from '../models/chat.model';
 
 @Injectable()
 export class ChatService extends BaseService<Chat> {
@@ -21,5 +21,9 @@ export class ChatService extends BaseService<Chat> {
   setActiveUser(user: User) {
     this.activeUser = user;
     this.activeUserChanged.emit(user);
+  }
+
+  addMessage(chat: Chat){
+    return this.create(chat);
   }
 }

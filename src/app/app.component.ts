@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
 
     this.chatService.activeUserChanged.subscribe(u => this.activeUser = u);
     this.userService
-      .read('5aaa55f64981f852f8f36433')
+      .list()
+      .map(users => users.docs[0])
       .subscribe(u => this.chatService.setActiveUser(u));
   }
 

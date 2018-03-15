@@ -15,24 +15,24 @@ exports.list = async function (query, params) {
     return await Chat.paginate(query, options);
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Users')
+    throw Error('Error while Paginating Chats')
   }
 };
 
-exports.create = async function (user) {
+exports.create = async function (chat) {
 
   // Creating a new Mongoose Object by using the new keyword
-  const newModel = new Chat(user);
+  const newModel = new Chat(chat);
   newModel.date_created = new Date();
 
   try {
-    // Saving the User
+    // Saving the Chat
     return await newModel.save();
 
   } catch (e) {
 
     // return a Error message describing the reason
-    throw Error("Error while Creating User")
+    throw Error("Error while Creating Chat")
   }
 };
 
@@ -43,51 +43,51 @@ exports.read = async function read(id) {
     return await Chat.findOne({_id: id});
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Users')
+    throw Error('Error while Paginating Chats')
   }
 };
 
-exports.update = async function update(user) {
-  const id = user._id;
+exports.update = async function update(chat) {
+  const id = chat._id;
   let oldModel;
 
   try {
-    //Find the old User Object by the Id
+    //Find the old Chat Object by the Id
     oldModel = await Chat.findById(id);
   } catch (e) {
-    throw Error("Error occured while Finding the User")
+    throw Error("Error occured while Finding the Chat")
   }
 
-  // If no old User Object exists return false
+  // If no old Chat Object exists return false
   if (!oldModel) {
     return false;
   }
 
-  oldModel.email = user.email;
-  oldModel.firstName = user.firstName;
-  oldModel.lastName = user.lastName;
+  oldModel.email = chat.email;
+  oldModel.firstName = chat.firstName;
+  oldModel.lastName = chat.lastName;
 
-  user.date_modified = new Date();
+  chat.date_modified = new Date();
 
   try {
     return await oldModel.save();
   } catch (e) {
-    throw Error("And Error occured while updating the User");
+    throw Error("And Error occured while updating the Chat");
   }
 };
 
 
 exports.del = async function (id) {
 
-  // Delete the User
+  // Delete the Chat
   try {``
     const deleted = await Chat.remove({_id: id});
     if (deleted.result.n === 0) {
-      throw Error("User Could not be deleted")
+      throw Error("Chat Could not be deleted")
     }
     return deleted
   } catch (e) {
-    throw Error("Error Occured while Deleting the User")
+    throw Error("Error Occured while Deleting the Chat")
   }
 };
 

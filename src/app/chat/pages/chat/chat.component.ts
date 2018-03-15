@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
-import { Chat } from '../../../_shared/models/chat.model';
 import { ChatService } from '../../services/chat.service';
 import { User } from '../../../user/models/user.model';
+import { Chat } from '../../models/chat.model';
 
 @Component({
   selector: 'app-chat',
@@ -15,12 +15,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   public conversation: Chat[] = [];
   private user: User;
 
-  constructor(private chatService: ChatService) {
-  }
+  constructor(private chatService: ChatService) {}
 
   ngOnInit() {
-    this.chatService.activeUserChanged.subscribe(u => this.userChanged(u));
     this.userChanged(this.chatService.activeUser);
+    this.chatService.activeUserChanged.subscribe(u => this.userChanged(u));
     this.scrollToBottom();
   }
 
@@ -29,15 +28,18 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   addMessage(message: string) {
-    this.conversation.push(new Chat('', 'user', message));
+    this.chatService
+      .addMessage(new Chat(this.user, 'user', message))
+      .subscribe(r => this.conversation.push(r));
+
     this.scrollToBottom();
     this.queryInput.nativeElement.value = '';
-
   }
 
-  private userChanged(user: User){
+  private userChanged(user: User) {
+    if (!user) return;
     this.user = user;
-    this.chatService.list();
+    this.chatService.list({user: user._id}).subscribe(c => this.conversation = c.docs);
   }
 
   private scrollToBottom(): void {
