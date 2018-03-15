@@ -4,11 +4,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div>
-        <h1 [routerLink]="'./chat'">Co.Station dev app</h1>
-      </div>
-      <div fxFlex></div>
-      <div *ngIf="activeUser">
-        {{activeUser.fullName}}
+        <h1>Co.Station dev app</h1>
       </div>
     </mat-toolbar>
     <mat-sidenav-container [style.marginTop.px]="isMobileView ? 56 : 0">

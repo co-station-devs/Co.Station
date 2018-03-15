@@ -1,11 +1,22 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
+const address = new mongoose.Schema({
+  description: String,
+  street: String,
+  number: Number,
+  city: String,
+  state: String,
+  postalCode: Number,
+  active: Boolean
+});
+
 
 const userSchema = new mongoose.Schema({
   email: String,
   firstName: String,
   lastName: String,
+  address: [address],
   date_created: Date,
   date_modified: Date,
 });

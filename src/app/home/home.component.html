@@ -1,7 +1,7 @@
 <div fxFlex="20"></div>
 <div fxFlex fxFlexFill fxLayout="column">
   <div class="chat-conversation" #chat>
-    <div *ngFor="let i of conversation" [ngClass]="{'other': i.user == 'assistant'}">{{i.message}}</div>
+    <p *ngFor="let i of conversation" [ngClass]="{'other': i.user == 'assistant'}">{{i.message}}</p>
   </div>
   <div class="chat-input">
     <mat-card>

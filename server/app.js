@@ -28,7 +28,6 @@ app.use(express.static(path.join(__dirname, '../dist')));
 
 // Api
 app.use('/api/v1/users', require('./user/users.route').users);
-app.use('/api/v1/chats', require('./chat/chat.route').chats);
 
 // Client
 app.use(function (req, res) {
