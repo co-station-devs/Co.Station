@@ -8,7 +8,7 @@ deploy:
   app: co-station-test
   on:
     repo: co-station-devs/Co.Station
-    branch: develop
+    branch: master
 before_install:
   - npm install -g codecov
 after_success:
