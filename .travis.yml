@@ -5,7 +5,11 @@ deploy:
   provider: heroku
   api_key:
     secure: jhAvLoaMxnCwXHDFgxrdDR/oNuGQREQCqjJB+clZ86tJXAQUATmgYCvvPu6TgEX3JOnU/s+S6lt0y7JYRW5KnEmq8fxJhxEOrXgoRHRf6jEitxCNm9rZUlyEZ1BIvn9ceCFIPcF6ePKnCTZjTEK6oPfTLM+pbKK404MzS2xsZPWK7KzgPY9baooG0uFUsmIuVJl/PYMH3xsGYJtXPzaqVJXC7+VmXuu25aEHrctmgRJDx5Dyg5AYhiTB6Nb9PZKp0tqiwPzaW3eL+4SPbPOwZ3xMiOrKjNTdsHlTl0v3GHF8M/7MNsJOX9hCkA5QU2uH67EGqo61RaQ38rc4wAO/lmEEh9Wy6CN36SshOfr8hEzhtFNZY/M6l0gnPwbqG8csaGaSMmcZTMt1/TP4huRl6Po6Ah9fFWdfP7Tv8VP64i5Ce3a6caJyS8ASGncTpIxTWbJd0f4pHn0CLXiirgkcl18oWJFX3Dk5kzOqeYQH8fd96Uo/u8RsrlkmEHgpOPxlb+IXrH28qUINmriR1+mLq55OdPwkSCl20VTb988r22sN19ckFtTbQL0pgrlxGLnaEAjV0umt8dsf0/wQjqjqgmV2LyxZxC6aPln3eUv2ebHqoj/FS1WMLvxQdmRNqo+yt0bv2pO0XBfnxaMXd3scKFaUXFPZsomXdDq0LJxA+EI=
-  app: Co.Station
+  app: co-station-test
   on:
-    repo: cskiwi/Co.Station
+    repo: co-station-devs/Co.Station
     branch: develop
+before_install:
+  - npm install -g codecov
+after_success:
+  - codecov
