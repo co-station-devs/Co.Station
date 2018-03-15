@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "sourceMap": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "pretty": true,
+    "stripInternal": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es2016", "dom"],
+    "typeRoots": [
+      "../node_modules/@types",
+      "../node_modules/@types"
+    ],
+    "types": ["jest", "node", "webpack", "webpack-env"],
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noStrictGenericChecks": true,
+    "noUnusedLocals": true
+  },
+  "include": ["../src/**/*.ts"],
+  "exclude": [
+    "../src/**/*.spec.ts",
+    "../node_modules",
+    "../demo",
+    "../dist"
+  ]
+}

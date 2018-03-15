@@ -10,7 +10,7 @@
             "name": "Start server",
             "program": "${workspaceFolder}\\server.js",
             "env": {
-                "MONGO_URL" : "mongodb://heroku_q058k69l:n0q3c9qqn2ol8p45rjpv34lhte@ds211289.mlab.com:11289/heroku_q058k69l"
+                "MONGO_URL" : "mongodb://0.0.0.0"
             }
         }
     ]

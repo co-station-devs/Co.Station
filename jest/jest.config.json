@@ -1,0 +1,31 @@
+{
+  "preset": "jest-preset-angular",
+  "setupTestFrameworkScriptFile": "<rootDir>/jest/setupJest.js",
+  "transform": {
+    "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
+  },
+  "collectCoverageFrom": [
+    "src/**/*.{ts,js}",
+    "!src/**/*.module.{ts,js}",
+    "!src/**/*.constant.{ts,js}",
+    "!src/**/config/**/*.{ts,js}",
+    "!src/**/*.routes.{ts,js}",
+    "!src/**/*.model.{ts,js}",
+    "!src/**/*index.{ts,js}",
+    "!src/*.ts",
+    "!src/app/xml-typings.d.ts"
+  ],
+  "globals": {
+    "ts-jest": {
+      "tsConfigFile": "./tsconfig/tsconfig-test.json"
+    },
+    "__TRANSFORM_HTML__": true
+  },
+  "collectCoverage": true,
+  "coverageDirectory": "<rootDir>/coverage",
+  "rootDir": "..",
+  "roots": [
+    "<rootDir>/src/"
+  ],
+  "cacheDirectory": "<rootDir>/tmp/jest"
+}

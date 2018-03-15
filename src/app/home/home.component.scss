@@ -1,0 +1,56 @@
+$spacing-between-chat-input: 20px;
+
+.chat-conversation {
+  height: calc(90vh - 75px - #{$spacing-between-chat-input});
+  overflow: auto;
+  display: block;
+  padding: 10px;
+
+  p {
+    margin-top: 5px;
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    color: #343434;
+    margin: 0 0 20px 20%;
+
+    &.other {
+      color: #fff;
+      margin: 0 20% 20px 0;
+      background-color: #387ef5;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+}
+
+.chat-input {
+  margin-top: $spacing-between-chat-input;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  mat-card {
+    border-radius: 20px;
+    padding: 5px 20px;
+  }
+
+  mat-icon {
+    bottom: -6px;
+    position: relative;
+  }
+
+  input {
+    width: calc(100% - 30px);
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
