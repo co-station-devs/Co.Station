@@ -10,7 +10,7 @@
             "name": "Start server",
             "program": "${workspaceFolder}\\server.js",
             "env": {
-                "MONGO_URL" : "mongodb://0.0.0.0"
+                "MONGO_URL" : "mongodb://127.0.0.1"
             }
         }
     ]

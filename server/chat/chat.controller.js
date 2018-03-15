@@ -1,95 +1,159 @@
 const Chat = require('./chat.model');
 const ChatService = require('./chat.service');
+const AssistentService = require('../assistant/assistant.service');
+const moment = require('moment');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId; 
 
-exports.list = async function (req, res, next) {
+module.exports = function (io) {
+  let chatController = {};
 
-  // Check the existence of the query parameters, If the exists doesn't exists assign a default value
-  const filter = {
-    page: req.query.page ? parseInt(req.query.page) + 1 : 1, // Front works 0 based, backend 1 based
-    limit: req.query.limit ? parseInt(req.query.limit) : 10,
-    sort: req.query.sort ? {} : null,
-    direction: req.query.direction ? req.query.direction : null
+  chatController.list = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If the exists doesn't exists assign a default value
+    const filter = {
+      page: req.query.page ? parseInt(req.query.page) + 1 : 1, // Front works 0 based, backend 1 based
+      limit: req.query.limit ? parseInt(req.query.limit) : 10,
+      sort: req.query.sort ? {} : null,
+      direction: req.query.direction ? req.query.direction : null
+    };
+
+    if (req.query.sort) {
+      filter.sort[req.query.sort] = req.query.direction;
+    }
+
+    const query = {};
+    // filter out chat for user
+    if (req.query.user) {
+      query.user = new ObjectId(req.query.user);
+    }
+
+    let beforeDate = req.query.date_created ?  moment(req.query.date_created) :moment().subtract(10, 'm');
+
+    query.date_created = {
+      $gte: beforeDate.toDate()
+    };
+
+    try {
+      const items = await ChatService.list(query, filter);
+
+      // Return the list with the appropriate HTTP Status Code and Message.
+
+      return res.status(200).json({
+        status: 200,
+        data: items,
+        message: `Succesfully Chats Recieved`
+      });
+
+    } catch (e) {
+
+      //Return an Error Response Message with Code and the Error Message.
+
+      return res.status(400).json({
+        status: 400,
+        message: e.message
+      });
+
+    }
   };
 
-  if (req.query.sort) {
-    filter.sort[req.query.sort] = req.query.direction;
-  }
+  chatController.create = async function (req, res, next) {
 
-  const query = {};
-  // filter out chat for user
-  if (req.query.user) {
-    query.user = req.query.user
-  }
+    // Req.Body contains the form submit values.
+    try {
+     
 
-  try {
+      // Calling the Service function with the new object from the Request Body
+      const createdModel = await ChatService.create(req.body);
+      io.emit('chatAdded', createdModel);
 
-    const items = await ChatService.list(query, filter);
+       // Get assistant answer
+       io.emit('thinking', true);
+       
+       // TODO: Buffer assistant's replies
+       AssistentService.process(req.body).then(async r => {
+        const serverAnswer = await ChatService.create(r );
+        io.emit('chatAdded', serverAnswer);
+        io.emit('thinking', false);
+      })
 
-    // Return the list with the appropriate HTTP Status Code and Message.
+      return res.status(201).json({
+        status: 201,
+        data: createdModel,
+        message: `Succesfully Created Chat`
+      })
+    } catch (e) {
 
-    return res.status(200).json({status: 200, data: items, message: `Succesfully Chats Recieved`});
+      //Return an Error Response Message with Code and the Error Message.
+      return res.status(400).json({
+        status: 400,
+        message: `Chat Creation was Unsuccesfull`
+      })
+    }
+  };
 
-  } catch (e) {
+  chatController.read = async function (req, res, next) {
 
-    //Return an Error Response Message with Code and the Error Message.
+    const id = req.params.id;
 
-    return res.status(400).json({status: 400, message: e.message});
+    try {
+      const item = await ChatService.read(id);
+      return res.status(200).json({
+        status: 200,
+        data: item,
+        message: `Succesfully Chat Recieved`
+      })
+    } catch (e) {
+      return res.status(400).json({
+        status: 400,
+        message: e.message
+      })
+    }
+  };
 
-  }
-};
+  chatController.update = async function (req, res, next) {
+    // Id is necessary for the update
 
-exports.create = async function (req, res, next) {
+    if (!req.body._id) {
+      return res.status(400).json({
+        status: 400.,
+        message: "Id must be present"
+      })
+    }
 
-  // Req.Body contains the form submit values.
-  try {
+    const id = req.body._id;
 
-    // Calling the Service function with the new object from the Request Body
-    const createdModel = await ChatService.create(req.body);
-    return res.status(201).json({status: 201, data: createdModel, message: `Succesfully Created Chat`})
-  } catch (e) {
+    try {
+      const updatedChat = await ChatService.update(req.body);
+      return res.status(200).json({
+        status: 200,
+        data: updatedChat,
+        message: `Succesfully Updated Chat`
+      })
+    } catch (e) {
+      return res.status(400).json({
+        status: 400.,
+        message: e.message
+      })
+    }
+  };
 
-    //Return an Error Response Message with Code and the Error Message.
+  chatController.del = async function (req, res, next) {
+    const id = req.params.id;
 
-    return res.status(400).json({status: 400, message: `Chat Creation was Unsuccesfull`})
-  }
-};
+    try {
+      const deleted = await ChatService.delete(id);
+      return res.status(204).json({
+        status: 204,
+        message: `Succesfully Chat Deleted`
+      })
+    } catch (e) {
+      return res.status(400).json({
+        status: 400,
+        message: e.message
+      })
+    }
+  };
 
-exports.read = async function (req, res, next) {
-
-  const id = req.params.id;
-
-  try {
-    const item = await ChatService.read(id);
-    return res.status(200).json({status: 200, data: item, message: `Succesfully Chat Recieved`})
-  } catch (e) {
-    return res.status(400).json({status: 400, message: e.message})
-  }
-};
-
-exports.update = async function (req, res, next) {
-  // Id is necessary for the update
-
-  if (!req.body._id) {
-    return res.status(400).json({status: 400., message: "Id must be present"})
-  }
-
-  const id = req.body._id;
-
-  try {
-    const updatedChat = await ChatService.update(req.body);
-    return res.status(200).json({status: 200, data: updatedChat, message: `Succesfully Updated Chat`})
-  } catch (e) {
-    return res.status(400).json({status: 400., message: e.message})
-  }
-};
-
-exports.del = async function (req, res, next) {
-  const id = req.params.id;
-
-  try {
-    const deleted = await ChatService.delete(id);
-    return res.status(204).json({status: 204, message: `Succesfully Chat Deleted`})
-  } catch (e) {
-    return res.status(400).json({status: 400, message: e.message})
-  }
-};
+  return chatController
+}

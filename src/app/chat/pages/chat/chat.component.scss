@@ -1,4 +1,4 @@
-$spacing-between-chat-input: 20px;
+$spacing-between-chat-input: 30px;
 
 .chat-conversation {
   height: calc(90vh - 75px - #{$spacing-between-chat-input});
@@ -27,6 +27,14 @@ $spacing-between-chat-input: 20px;
     width: 0px;
     background: transparent; /* make scrollbar transparent */
   }
+}
+
+.typing{
+  color: #999999;
+  font-size: 12px;
+  position: absolute;
+  top: -20px;
+  left: 10px;
 }
 
 .chat-input {

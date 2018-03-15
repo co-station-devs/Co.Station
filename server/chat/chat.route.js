@@ -1,18 +1,20 @@
 const express = require('express');
-const ChatController = require('./chat.controller');
 const chats = express.Router();
 
-/* GET chats listing. */
-chats.get('/', ChatController.list);
+module.exports.chats = function (io) {
+  const ChatController = require('./chat.controller')(io);
 
-chats.get('/:id', ChatController.read);
+  /* GET chats listing. */
+  chats.get('/', ChatController.list);
 
-chats.post('/', ChatController.create);
+  chats.get('/:id', ChatController.read);
 
-chats.put('/', ChatController.update);
+  chats.post('/', ChatController.create);
 
-chats.delete('/:id', ChatController.del);
+  chats.put('/', ChatController.update);
+
+  chats.delete('/:id', ChatController.del);
 
 
-module.exports.chats = chats;
-
+  return chats
+};

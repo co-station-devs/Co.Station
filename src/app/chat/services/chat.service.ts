@@ -23,7 +23,7 @@ export class ChatService extends BaseService<Chat> {
     this.activeUserChanged.emit(user);
   }
 
-  addMessage(chat: Chat){
+  addMessage(chat: Chat) {
     return this.create(chat);
   }
 }
