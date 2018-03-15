@@ -11,6 +11,7 @@ const app = express();
 // Fetch url from env
 let mongoURL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://0.0.0.0';
 
+
 // Monogo connection
 mongoose.Promise = require('bluebird');
 mongoose.connect(mongoURL, {useMongoClient: true, promiseLibrary: require('bluebird')})
@@ -26,14 +27,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 // resources
 app.use(express.static(path.join(__dirname, '../dist')));
 
-// Api
-app.use('/api/v1/users', require('./user/users.route').users);
-app.use('/api/v1/chats', require('./chat/chat.route').chats);
-
-// Client
-app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
-});
 
 
 module.exports = app;

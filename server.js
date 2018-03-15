@@ -7,6 +7,7 @@
 const app = require('./server/app');
 const debug = require('debug')('mean-app:server');
 const http = require('http');
+const socket = require('socket.io');
 
 /**
  * Get port from environment and store in Express.
@@ -25,12 +26,32 @@ app.set('host', ip);
 const server = http.createServer(app);
 
 /**
+ * Create Socket server.
+ */
+const io = socket(server);
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+
+/**
+ * Setting up routes
+ */
+
+ // Api
+app.use('/api/v1/users', require('./server/user/users.route').users);
+app.use('/api/v1/chats', require('./server/chat/chat.route').chats(io));
+
+
+// Client
+app.use(function (req, res) {
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+});
 
 /**
  * Normalize a port into a number, string, or false.

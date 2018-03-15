@@ -1,32 +1,42 @@
-$spacing-between-chat-input: 20px;
-
+$spacing-between-chat-input: 30px;
 .chat-conversation {
   height: calc(90vh - 75px - #{$spacing-between-chat-input});
   overflow: auto;
-  display: block;
   padding: 10px;
-
-  div {
+  div.message {
     margin-top: 5px;
-    border-radius: 10px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    color: #343434;
     margin: 0 0 20px 20%;
     text-align: right;
-
     &.other {
       text-align: left;
-      color: #fff;
       margin: 0 20% 20px 0;
-      background-color: #387ef5;
+      span {
+        color: #fff;
+        background-color: #387ef5;
+      }
+    }
+    span {
+      display: inline-block;
+      white-space: pre-line;
+      border-radius: 10px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      color: #343434;
     }
   }
-
   &::-webkit-scrollbar {
     width: 0px;
-    background: transparent; /* make scrollbar transparent */
+    background: transparent;
+    /* make scrollbar transparent */
   }
+}
+
+.typing {
+  color: #999999;
+  font-size: 12px;
+  position: absolute;
+  top: -20px;
+  left: 10px;
 }
 
 .chat-input {
@@ -35,17 +45,14 @@ $spacing-between-chat-input: 20px;
   bottom: 0;
   left: 0;
   right: 0;
-
   mat-card {
     border-radius: 20px;
     padding: 5px 20px;
   }
-
   mat-icon {
     bottom: -6px;
     position: relative;
   }
-
   input {
     width: calc(100% - 30px);
     border: none;
