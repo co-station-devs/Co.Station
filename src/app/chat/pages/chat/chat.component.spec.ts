@@ -5,7 +5,6 @@ import { MaterialModule } from '../../../material.module';
 
 describe('HomeComponent', () => {
   let component: ChatComponent;
-  let fixture: ComponentFixture<ChatComponent>;
 
   beforeEach(() => {
     component = new ChatComponent(null);
