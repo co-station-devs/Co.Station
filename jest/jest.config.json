@@ -22,7 +22,7 @@
     "__TRANSFORM_HTML__": true
   },
   "collectCoverage": true,
-  "coverageDirectory": "<rootDir>/reports/coverage",
+  "coverageDirectory": "<rootDir>/coverage",
   "rootDir": "..",
   "roots": [
     "<rootDir>/src/"
