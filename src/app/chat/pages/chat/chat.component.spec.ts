@@ -7,19 +7,8 @@ describe('HomeComponent', () => {
   let component: ChatComponent;
   let fixture: ComponentFixture<ChatComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        imports: [MaterialModule],
-        declarations: [ChatComponent]
-      }).compileComponents();
-    })
-  );
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new ChatComponent(null);
   });
 
   it('should create', () => {
