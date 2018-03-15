@@ -13,9 +13,9 @@
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="setActiveUser(user)">
           <mat-icon>favorite</mat-icon>
-          <span>Favorite</span>
+          <span>Active</span>
         </button>
       </mat-menu>
     </div>

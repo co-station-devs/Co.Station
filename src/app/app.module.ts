@@ -1,27 +1,22 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule} from '@angular/forms';
-import {MaterialModule} from './material.module';
-import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {UserModule} from './user/user.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './material.module';
+import { RouterModule, Routes } from '@angular/router';
+import { UserModule } from './user/user.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChatModule } from './chat/chat.module';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  // {path: '**', component: HomeComponent}
+  { path: '', redirectTo: 'user', pathMatch: 'full' },
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     FlexLayoutModule,
     BrowserModule,
@@ -29,11 +24,11 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RouterModule.forRoot(routes, {enableTracing: false}),
+    ChatModule,
+    RouterModule.forRoot(routes, { enableTracing: false }),
     UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
