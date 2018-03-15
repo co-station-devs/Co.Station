@@ -4,7 +4,6 @@ import {User} from '../../models/user.model';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-import { ChatService } from '../../../chat/services/chat.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,8 +16,7 @@ export class UserDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
-    private chatService: ChatService
+    private userService: UserService
   ) {
   }
 
@@ -29,9 +27,5 @@ export class UserDetailComponent implements OnInit {
           return this.userService.read(params.get('id'));
         }
       );
-  }
-
-  setActiveUser(user: User){
-    this.chatService.setActiveUser(user);
   }
 }
