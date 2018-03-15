@@ -3,8 +3,8 @@ $spacing-between-chat-input: 30px;
 .chat-conversation {
   height: calc(90vh - 75px - #{$spacing-between-chat-input});
   overflow: auto;
-  display: block;
   padding: 10px;
+  white-space: pre;
 
   div {
     margin-top: 5px;

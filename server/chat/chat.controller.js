@@ -68,9 +68,8 @@ module.exports = function (io) {
       io.emit('chatAdded', createdModel);
 
        // Get assistant answer
-       io.emit('thinking', true);
-       
        // TODO: Buffer assistant's replies
+       io.emit('thinking', true);
        AssistentService.process(req.body).then(async r => {
         const serverAnswer = await ChatService.create(r );
         io.emit('chatAdded', serverAnswer);
