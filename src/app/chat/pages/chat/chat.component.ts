@@ -4,6 +4,10 @@ import { User } from '../../../user/models/user.model';
 import { Chat, ChatType } from '../../models/chat.model';
 import * as io from 'socket.io-client';
 import { environment } from '../../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { mergeMap, toArray, combineAll, combineLatest, concat, merge, scan } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-chat',
@@ -14,12 +18,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   @ViewChild('chat') private chatContainer: ElementRef;
   @ViewChild('query') private queryInput: ElementRef;
 
-  conversation: Chat[] = [];
+  conversation$: Observable<Chat[]>;
+  thinking$: Observable<boolean>;
   thinking: boolean;
   private user: User;
   private socket;
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService) {}
 
   ngOnInit() {
     this.userChanged(this.chatService.activeUser);
@@ -27,13 +32,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.scrollToBottom();
 
     this.socket = io.connect(environment.api_url);
-    this.socket.on('chatAdded', data => {
-      this.conversation.push(new Chat(data.user, data.type, data.message, data._id));
-    });
-
-    this.socket.on('thinking', active => {
-      this.thinking = active;
-    });
+    this.thinking$ = fromEvent(this.socket, 'thinking');
   }
 
   ngAfterViewChecked() {
@@ -41,23 +40,35 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   addMessage(message: string) {
-    this.chatService
-      .addMessage(new Chat(this.user, ChatType.user, message))
-      .subscribe(r => { });
+    this.chatService.addMessage(new Chat(this.user, ChatType.user, message)).subscribe(r => {});
 
     this.scrollToBottom();
     this.queryInput.nativeElement.value = '';
   }
 
   private userChanged(user: User) {
-    if (!user) { return; }
+    if (!user) {
+      return;
+    }
     this.user = user;
-    this.chatService.list({ user: user._id }).subscribe(c => this.conversation = c.docs);
+    this.setupConversationStream();
+  }
+
+  private setupConversationStream(){
+    // Get our initial data
+    var initialData = this.chatService.list({ user: this.user._id }).map(x => x.docs);
+    // Grab our socket stream
+    var socketIO = fromEvent(this.socket, `chatAdded_${this.user._id}`);
+    // Combine our initial Data with the socket data into conversation stream
+    this.conversation$ = initialData.pipe(
+      merge(socketIO),
+      scan((acc: Chat[], x: Chat) => acc.concat([new Chat(x.user, x.type, x.message, x._id)]))
+    );
   }
 
   private scrollToBottom(): void {
     try {
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {}
   }
 }

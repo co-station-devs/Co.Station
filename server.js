@@ -53,6 +53,9 @@ app.use(function (req, res) {
   res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
+// resources
+app.use(express.static(path.join(__dirname, '../dist')));
+
 /**
  * Normalize a port into a number, string, or false.
  */

@@ -24,9 +24,4 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// resources
-app.use(express.static(path.join(__dirname, '../dist')));
-
-
-
 module.exports = app;

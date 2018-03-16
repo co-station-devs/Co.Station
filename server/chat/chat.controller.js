@@ -3,7 +3,7 @@ const ChatService = require('./chat.service');
 const AssistentService = require('../assistant/assistant.service');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId; 
+const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = function (io) {
   let chatController = {};
@@ -61,18 +61,18 @@ module.exports = function (io) {
 
     // Req.Body contains the form submit values.
     try {
-     
+
 
       // Calling the Service function with the new object from the Request Body
       const createdModel = await ChatService.create(req.body);
-      io.emit('chatAdded', createdModel);
+      io.emit(`chatAdded_${createdModel.user}`, createdModel);
 
        // Get assistant answer
        // TODO: Buffer assistant's replies
        io.emit('thinking', true);
        AssistentService.process(req.body).then(async r => {
         const serverAnswer = await ChatService.create(r );
-        io.emit('chatAdded', serverAnswer);
+        io.emit(`chatAdded_${createdModel.user}`, serverAnswer);
         io.emit('thinking', false);
       })
 
