@@ -14,11 +14,13 @@ import { merge, scan } from 'rxjs/operators';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, AfterViewInit {
+  @ViewChild('chat') chatContainer: ElementRef;
+  @ViewChild('query') queryInput: ElementRef;
+
   conversation$: Observable<Chat[]>;
   thinking$: Observable<boolean>;
   thinking: boolean;
-  @ViewChild('chat') private chatContainer: ElementRef;
-  @ViewChild('query') private queryInput: ElementRef;
+
   private user: User;
   private socket;
 
@@ -37,8 +39,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   addMessage(message: string) {
     this.chatService.addMessage(new Chat(this.user, ChatType.user, message)).subscribe(r => {
     });
-
-    this.scrollToBottom();
     this.queryInput.nativeElement.value = '';
   }
 
