@@ -8,7 +8,7 @@ describe('UserService', () => {
     service = new UserService(null);
   });
 
-  it('should be created', () => {
+  test('should be created', () => {
     expect(service).toBeTruthy();
   });
 });

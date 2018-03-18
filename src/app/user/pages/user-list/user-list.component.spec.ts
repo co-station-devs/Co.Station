@@ -8,7 +8,7 @@ describe('UserListComponent', () => {
     component = new UserListComponent(null);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChatComponent } from './chat.component';
-import { MaterialModule } from '../../../material.module';
 
 describe('HomeComponent', () => {
   let component: ChatComponent;
@@ -10,7 +8,7 @@ describe('HomeComponent', () => {
     component = new ChatComponent(null);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });
