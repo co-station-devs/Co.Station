@@ -16,7 +16,7 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  test('Initialization of streams', () => {
+  /*test('Initialization of streams', () => {
     // Arrange
     const spy = jest.spyOn(component, 'changeUser');
     const subject =  new Subject();
@@ -28,5 +28,5 @@ describe('HomeComponent', () => {
 
     // Assert
     expect(spy).toHaveBeenCalledWith('new User');
-  });
+  });*/
 });
