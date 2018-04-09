@@ -6,8 +6,10 @@ const userSchema = new mongoose.Schema({
   email: String,
   firstName: String,
   lastName: String,
+  hrx: {type: mongoose.Schema.Types.ObjectId, ref: 'Hrx'},
+
   date_created: Date,
-  date_modified: Date,
+  date_modified: Date
 });
 
 

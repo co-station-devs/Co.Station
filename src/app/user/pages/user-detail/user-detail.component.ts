@@ -3,8 +3,11 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 import { ChatService } from '../../../chat/services/chat.service';
+import { HrxService } from '../../services/hrx.service';
+import { Hrx } from '../../models/hrx.model';
+import { assign } from 'rxjs/util/assign';
 
 @Component({
   selector: 'app-user-detail',
@@ -18,17 +21,34 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
+    private hrxService: HrxService,
     private chatService: ChatService
   ) {
   }
 
   ngOnInit() {
     this.user$ =
-      this.route.paramMap.switchMap(
-        (params: ParamMap) => {
-          return this.userService.read(params.get('id'));
-        }
-      );
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => {
+            return this.userService.read(params.get('id'));
+          }
+        ));
+  }
+
+  testCreate() {
+    const newModel = assign(new Hrx(), {
+      _id: '5acb48f175387825f8378f91',
+      firstName: 'Glenn',
+      lastName: 'Latomme',
+      postalCode: 9970,
+      status: 'Single',
+      seniorityEmployerYears: 2,
+      seniorityYears: 2,
+      age: 26
+    });
+    this.hrxService.update(newModel).subscribe(r => {
+      console.log(r);
+    });
   }
 
   setActiveUser(user: User) {

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {User} from '../../models/user.model';
-import {UserService} from '../../services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-edit',
@@ -21,11 +22,11 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.user$ =
-      this.route.paramMap.switchMap(
+      this.route.paramMap.pipe(switchMap(
         (params: ParamMap) => {
           return this.userService.read(params.get('id'));
         }
-      );
+      ));
   }
 
   onSubmit(user: User) {

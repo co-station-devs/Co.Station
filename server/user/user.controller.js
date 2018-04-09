@@ -3,9 +3,9 @@ const UserService = require('./user.service');
 
 
 module.exports = function(io) {
-  let hrxController = {};
+  let userController = {};
 
-  hrxController.list = async function(req, res, next) {
+  userController.list = async function(req, res, next) {
 
     // Check the existence of the query parameters, If the exists doesn't exists assign a default value
 
@@ -42,7 +42,7 @@ module.exports = function(io) {
     }
   };
 
-  hrxController.create = async function(req, res, next) {
+  userController.create = async function(req, res, next) {
 
     // Req.Body contains the form submit values.
     try {
@@ -58,7 +58,7 @@ module.exports = function(io) {
     }
   };
 
-  hrxController.read = async function(req, res, next) {
+  userController.read = async function(req, res, next) {
 
     const id = req.params.id;
 
@@ -70,7 +70,7 @@ module.exports = function(io) {
     }
   };
 
-  hrxController.update = async function(req, res, next) {
+  userController.update = async function(req, res, next) {
     // Id is necessary for the update
 
     if (!req.body._id) {
@@ -87,7 +87,7 @@ module.exports = function(io) {
     }
   };
 
-  hrxController.del = async function(req, res, next) {
+  userController.del = async function(req, res, next) {
     const id = req.params.id;
 
     try {
@@ -98,5 +98,5 @@ module.exports = function(io) {
     }
   };
 
-  return hrxController;
+  return userController;
 };

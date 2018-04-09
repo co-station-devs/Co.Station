@@ -1,13 +1,15 @@
-import {MongoBase} from '../../_shared/models/mongo-base';
-import { Hrx } from './hrx.model';
+import { MongoBase } from '../../_shared/models/mongo-base';
 
-export class User extends MongoBase {
+export class Hrx extends MongoBase {
   constructor(
     public _id?: string,
-    public email?: string,
     public firstName?: string,
     public lastName?: string,
-    public hrx?: Hrx,
+    public seniorityYears?: Number,
+    public seniorityEmployerYears?: Number,
+    public postalCode?: Number,
+    public status?: String,
+
     public date_created?: Date,
     public date_modified?: Date,
   ) {
