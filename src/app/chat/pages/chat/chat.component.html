@@ -1,12 +1,12 @@
 <div fxFlex="20"></div>
 <div fxFlex fxFlexFill fxLayout="column">
   <div class="chat-conversation" #chat>
-    <div *ngFor="let i of conversation" class="message" [ngClass]="{'other': i.type == 0}">
+    <div *ngFor="let i of conversation$ | async" class="message" [ngClass]="{'other': i.type == 0}">
       <span>{{i.message}}</span>
     </div>
   </div>
   <div class="chat-input">
-    <div class="typing" *ngIf="thinking">Assistant is typing ...</div>
+    <div class="typing" *ngIf="thinking$ | async">Assistant is typing ...</div>
     <mat-card>
       <mat-icon>search</mat-icon>
       <input #query placeholder="Your search query" (keyup.enter)="addMessage(query.value)">

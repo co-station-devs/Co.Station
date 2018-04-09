@@ -11,8 +11,6 @@ export class UserService extends BaseService<User> {
   service_url = `${this.api_url}api/v1/users`;
   type = new User();
 
-  
-
   constructor(http: HttpClient) {
     super(http);
   }

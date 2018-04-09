@@ -11,7 +11,6 @@ const app = express();
 // Fetch url from env
 let mongoURL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://127.0.0.1';
 
-
 // Monogo connection
 mongoose.Promise = require('bluebird');
 mongoose.connect(mongoURL, {useMongoClient: true, promiseLibrary: require('bluebird')})
