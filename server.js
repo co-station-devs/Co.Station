@@ -71,6 +71,8 @@ server.on('listening', onListening);
  // Api
 app.use('/api/v1/users', require('./server/user/users.route').users);
 app.use('/api/v1/chats', require('./server/chat/chat.route').chats(io));
+app.use('/api/v1/hrx', require('./server/hrx/hrx.route').hrx(io));
+
 
 
 // Client
