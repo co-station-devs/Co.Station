@@ -25,7 +25,7 @@ exports.list = async function (req, res, next) {
 
     const items = await UserService.list(query, filter);
 
-    // Return the list with the appropriate HTTP Status Code and Message.
+    // Return the list with the appropriate HTTP status Code and Message.
 
     return res.status(200).json({status: 200, data: items, message: `Succesfully Users Recieved`});
 

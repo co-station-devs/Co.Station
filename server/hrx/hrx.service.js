@@ -1,25 +1,32 @@
 const Hrx = require('./hrx.model');
 const ignoredValues = ['date_created', 'date_modified', '_id'];
 
-exports.list = async function (query, params) {
-  // Options setup for the mongoose paginate
-  const options = {
-    page: params.page,
-    limit: params.limit,
-    sort: params.sort
-  };
+exports.find = async function(name) {
 
-  // Try Catch the awaited promise to handle the error
+  const names = name.replace(', ', ' ').replace(',', ' ').split(' ');
 
   try {
-    return await Hrx.paginate(query, options);
+    let first = await Hrx.findOne(
+      {
+        firstName: { $regex: names[0], $options: 'i' },
+        lastName: { $regex: names[1], $options: 'i' }
+      });
+    if (first != null) {
+      return first;
+    }
+    return await Hrx.findOne(
+      {
+        firstName: { $regex: names[1], $options: 'i' },
+        lastName: { $regex: names[0], $options: 'i' }
+      });
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Hrx')
+    throw Error('Error while Paginating Hrx');
   }
 };
 
-exports.create = async function (hrx) {
+
+exports.create = async function(hrx) {
 
   // Creating a new Mongoose Object by using the new keyword
   const newModel = new Hrx(hrx);
@@ -32,7 +39,7 @@ exports.create = async function (hrx) {
   } catch (e) {
 
     // return a Error message describing the reason
-    throw Error("Error while Creating Hrx")
+    throw Error('Error while Creating Hrx');
   }
 };
 
@@ -40,10 +47,10 @@ exports.read = async function read(id) {
   // Try Catch the awaited promise to handle the error
 
   try {
-    return await Hrx.findOne({_id: id});
+    return await Hrx.findOne({ _id: id });
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Hrx')
+    throw Error('Error while Paginating Hrx');
   }
 };
 
@@ -55,7 +62,7 @@ exports.update = async function update(hrx) {
     //Find the old Hrx Object by the Id
     oldModel = await Hrx.findById(id);
   } catch (e) {
-    throw Error("Error occured while Finding the Hrx")
+    throw Error('Error occured while Finding the Hrx');
   }
 
   // If no old Hrx Object exists return false
@@ -63,31 +70,35 @@ exports.update = async function update(hrx) {
     return false;
   }
 
-  oldModel.email = hrx.email;
   oldModel.firstName = hrx.firstName;
   oldModel.lastName = hrx.lastName;
+  oldModel.seniorityEmployerYears = hrx.seniorityEmployerYears;
+  oldModel.seniorityYears = hrx.seniorityYears;
+  oldModel.status = hrx.status;
+  oldModel.postalCode = hrx.postalCode;
 
-  hrx.date_modified = new Date();
+  oldModel.date_modified = new Date();
 
   try {
     return await oldModel.save();
   } catch (e) {
-    throw Error("And Error occured while updating the Hrx");
+    throw Error('And Error occured while updating the Hrx');
   }
 };
 
 
-exports.del = async function (id) {
+exports.del = async function(id) {
 
   // Delete the Hrx
-  try {``
-    const deleted = await Hrx.remove({_id: id});
+  try {
+    ``;
+    const deleted = await Hrx.remove({ _id: id });
     if (deleted.result.n === 0) {
-      throw Error("Hrx Could not be deleted")
+      throw Error('Hrx Could not be deleted');
     }
-    return deleted
+    return deleted;
   } catch (e) {
-    throw Error("Error Occured while Deleting the Hrx")
+    throw Error('Error Occured while Deleting the Hrx');
   }
 };
 

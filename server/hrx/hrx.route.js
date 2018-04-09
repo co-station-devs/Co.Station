@@ -5,7 +5,7 @@ module.exports.hrx = function (io) {
   const HrxController = require('./hrx.controller')(io);
 
   /* GET hrx listing. */
-  hrx.get('/', HrxController.list);
+  hrx.get('/find/:name', HrxController.find);
 
   hrx.get('/:id', HrxController.read);
 

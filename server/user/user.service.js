@@ -40,7 +40,7 @@ exports.read = async function read(id) {
   // Try Catch the awaited promise to handle the error
 
   try {
-    return await User.findOne({_id: id});
+    return await User.findOne({_id: id}).populate('hrx');
   } catch (e) {
     // return a Error message describing the reason
     throw Error('Error while Paginating Users')
@@ -67,7 +67,7 @@ exports.update = async function update(user) {
   oldModel.firstName = user.firstName;
   oldModel.lastName = user.lastName;
 
-  user.date_modified = new Date();
+  oldModel.date_modified = new Date();
 
   try {
     return await oldModel.save();

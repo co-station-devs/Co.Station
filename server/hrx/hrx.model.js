@@ -3,13 +3,13 @@ const mongoosePaginate = require('mongoose-paginate');
 
 
 const hrxSchema = new mongoose.Schema({
-  name: String,
+  firstName: String,
   lastName: String,
-  Age: Number,
-  SeniorityYears: Number,
-  SeniorityEmployerYears: Number,
-  PostalCode: Number,
-  Status: {
+  age: Number,
+  seniorityYears: Number,
+  seniorityEmployerYears: Number,
+  postalCode: Number,
+  status: {
     type: String,
     enum: ['Single', 'Married', 'LivingTogether']
   },

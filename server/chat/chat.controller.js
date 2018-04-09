@@ -5,10 +5,10 @@ const moment = require('moment');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
-module.exports = function (io) {
+module.exports = function(io) {
   let chatController = {};
 
-  chatController.list = async function (req, res, next) {
+  chatController.list = async function(req, res, next) {
 
     // Check the existence of the query parameters, If the exists doesn't exists assign a default value
     const filter = {
@@ -28,7 +28,7 @@ module.exports = function (io) {
       query.user = new ObjectId(req.query.user);
     }
 
-    let beforeDate = req.query.date_created ?  moment(req.query.date_created) :moment().subtract(10, 'm');
+    let beforeDate = req.query.date_created ? moment(req.query.date_created) : moment().subtract(10, 'm');
 
     query.date_created = {
       $gte: beforeDate.toDate()
@@ -37,7 +37,7 @@ module.exports = function (io) {
     try {
       const items = await ChatService.list(query, filter);
 
-      // Return the list with the appropriate HTTP Status Code and Message.
+      // Return the list with the appropriate HTTP status Code and Message.
 
       return res.status(200).json({
         status: 200,
@@ -57,7 +57,7 @@ module.exports = function (io) {
     }
   };
 
-  chatController.create = async function (req, res, next) {
+  chatController.create = async function(req, res, next) {
 
     // Req.Body contains the form submit values.
     try {
@@ -67,31 +67,31 @@ module.exports = function (io) {
       const createdModel = await ChatService.create(req.body);
       io.emit(`chatAdded_${createdModel.user}`, createdModel);
 
-       // Get assistant answer
-       // TODO: Buffer assistant's replies
-       io.emit('thinking', true);
-       AssistentService.process(req.body).then(async r => {
-        const serverAnswer = await ChatService.create(r );
+      // Get assistant answer
+      // TODO: Buffer assistant's replies
+      io.emit('thinking', true);
+      AssistentService.process(req.body).then(async r => {
+        const serverAnswer = await ChatService.create(r);
         io.emit(`chatAdded_${createdModel.user}`, serverAnswer);
         io.emit('thinking', false);
-      })
+      });
 
       return res.status(201).json({
         status: 201,
         data: createdModel,
         message: `Succesfully Created Chat`
-      })
+      });
     } catch (e) {
 
       //Return an Error Response Message with Code and the Error Message.
       return res.status(400).json({
         status: 400,
         message: `Chat Creation was Unsuccesfull`
-      })
+      });
     }
   };
 
-  chatController.read = async function (req, res, next) {
+  chatController.read = async function(req, res, next) {
 
     const id = req.params.id;
 
@@ -101,23 +101,23 @@ module.exports = function (io) {
         status: 200,
         data: item,
         message: `Succesfully Chat Recieved`
-      })
+      });
     } catch (e) {
       return res.status(400).json({
         status: 400,
         message: e.message
-      })
+      });
     }
   };
 
-  chatController.update = async function (req, res, next) {
+  chatController.update = async function(req, res, next) {
     // Id is necessary for the update
 
     if (!req.body._id) {
       return res.status(400).json({
         status: 400.,
-        message: "Id must be present"
-      })
+        message: 'Id must be present'
+      });
     }
 
     const id = req.body._id;
@@ -128,16 +128,16 @@ module.exports = function (io) {
         status: 200,
         data: updatedChat,
         message: `Succesfully Updated Chat`
-      })
+      });
     } catch (e) {
       return res.status(400).json({
         status: 400.,
         message: e.message
-      })
+      });
     }
   };
 
-  chatController.del = async function (req, res, next) {
+  chatController.del = async function(req, res, next) {
     const id = req.params.id;
 
     try {
@@ -145,14 +145,14 @@ module.exports = function (io) {
       return res.status(204).json({
         status: 204,
         message: `Succesfully Chat Deleted`
-      })
+      });
     } catch (e) {
       return res.status(400).json({
         status: 400,
         message: e.message
-      })
+      });
     }
   };
 
-  return chatController
-}
+  return chatController;
+};

@@ -7,52 +7,22 @@ const ObjectId = mongoose.Types.ObjectId;
 module.exports = function (io) {
   let hrxController = {};
 
-  hrxController.list = async function (req, res, next) {
+  hrxController.find = async function (req, res, next) {
 
-    // Check the existence of the query parameters, If the exists doesn't exists assign a default value
-    const filter = {
-      page: req.query.page ? parseInt(req.query.page) + 1 : 1, // Front works 0 based, backend 1 based
-      limit: req.query.limit ? parseInt(req.query.limit) : 10,
-      sort: req.query.sort ? {} : null,
-      direction: req.query.direction ? req.query.direction : null
-    };
-
-    if (req.query.sort) {
-      filter.sort[req.query.sort] = req.query.direction;
-    }
-
-    const query = {};
-    // filter out hrx for user
-    if (req.query.user) {
-      query.user = new ObjectId(req.query.user);
-    }
-
-    let beforeDate = req.query.date_created ?  moment(req.query.date_created) :moment().subtract(10, 'm');
-
-    query.date_created = {
-      $gte: beforeDate.toDate()
-    };
+    const name = req.params.name;
 
     try {
-      const items = await HrxService.list(query, filter);
-
-      // Return the list with the appropriate HTTP Status Code and Message.
-
+      const item = await HrxService.find(name);
       return res.status(200).json({
         status: 200,
-        data: items,
-        message: `Succesfully Hrxs Recieved`
-      });
-
+        data: item,
+        message: `Succesfully Hrx Recieved`
+      })
     } catch (e) {
-
-      //Return an Error Response Message with Code and the Error Message.
-
       return res.status(400).json({
         status: 400,
         message: e.message
-      });
-
+      })
     }
   };
 
@@ -60,7 +30,6 @@ module.exports = function (io) {
 
     // Req.Body contains the form submit values.
     try {
-
 
       // Calling the Service function with the new object from the Request Body
       const createdModel = await HrxService.create(req.body);
