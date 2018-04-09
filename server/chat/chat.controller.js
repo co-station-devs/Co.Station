@@ -78,18 +78,20 @@ module.exports = function(io) {
         await UserService.update(user);
       }
 
+      let serverAnswer;
+
       // Get assistant answer
       // TODO: Buffer assistant's replies
       io.emit('thinking', true);
       AssistantService.process(req.body).then(async r => {
-        const serverAnswer = await ChatService.create(r);
+        serverAnswer = await ChatService.create(r);
         io.emit(`chatAdded_${createdModel.user}`, serverAnswer);
         io.emit('thinking', false);
       });
 
       return res.status(201).json({
         status: 201,
-        data: createdModel,
+        data: serverAnswer || createdModel,
         message: `Succesfully Created Chat`
       });
     } catch (e) {
