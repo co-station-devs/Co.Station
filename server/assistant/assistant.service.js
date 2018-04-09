@@ -5,7 +5,19 @@ exports.process = async function (params) {
   const query = params.message;
   const languageCode = 'en-US';
   const dialogflow = require('dialogflow');
-  const sessionClient = new dialogflow.SessionsClient();
+  let sessionClient;
+
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    sessionClient = new dialogflow.SessionsClient();
+  } else {
+    sessionClient = new dialogflow.SessionsClient({
+      projectId: process.env.GOOGLE_PROJECT_ID,
+      credentials: {
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        client_email: process.env.GOOGLE_CLIENT_EMAIL
+      }
+    });
+  }
 
   // Define session path
   const sessionPath = sessionClient.sessionPath(projectId, sessionId);
