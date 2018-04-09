@@ -154,5 +154,5 @@ module.exports = function (io) {
     }
   };
 
-  return chatController
-}
+  return chatController;
+};
