@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { HrxService } from './hrx.service';
+import { UserService } from './user.service';
 
 describe('HrxService', () => {
+  let service;
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [HrxService]
-    });
+    service = new HrxService(null);
   });
 
-  it('should be created', inject([HrxService], (service: HrxService) => {
+  test('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });
