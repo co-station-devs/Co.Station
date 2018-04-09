@@ -3,9 +3,17 @@ const mongoosePaginate = require('mongoose-paginate');
 
 
 const hrxSchema = new mongoose.Schema({
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  type: Number,
-  message: String,
+  name: String,
+  lastName: String,
+  Age: Number,
+  SeniorityYears: Number,
+  SeniorityEmployerYears: Number,
+  PostalCode: Number,
+  Status: {
+    type: String,
+    enum: ['Single', 'Married', 'LivingTogether']
+  },
+
   date_created: Date,
   date_modified: Date,
 });
@@ -13,7 +21,7 @@ const hrxSchema = new mongoose.Schema({
 
 
 hrxSchema.plugin(mongoosePaginate);
-const Chat = mongoose.model('Chat', hrxSchema);
+const Hrx = mongoose.model('Hrx', hrxSchema);
 
-module.exports = Chat;
+module.exports = Hrx;
 

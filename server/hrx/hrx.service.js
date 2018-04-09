@@ -15,14 +15,14 @@ exports.list = async function (query, params) {
     return await Hrx.paginate(query, options);
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Chats')
+    throw Error('Error while Paginating Hrx')
   }
 };
 
-exports.create = async function (chat) {
+exports.create = async function (hrx) {
 
   // Creating a new Mongoose Object by using the new keyword
-  const newModel = new Hrx(chat);
+  const newModel = new Hrx(hrx);
   newModel.date_created = new Date();
 
   try {
@@ -43,12 +43,12 @@ exports.read = async function read(id) {
     return await Hrx.findOne({_id: id});
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Chats')
+    throw Error('Error while Paginating Hrx')
   }
 };
 
-exports.update = async function update(chat) {
-  const id = chat._id;
+exports.update = async function update(hrx) {
+  const id = hrx._id;
   let oldModel;
 
   try {
@@ -63,11 +63,11 @@ exports.update = async function update(chat) {
     return false;
   }
 
-  oldModel.email = chat.email;
-  oldModel.firstName = chat.firstName;
-  oldModel.lastName = chat.lastName;
+  oldModel.email = hrx.email;
+  oldModel.firstName = hrx.firstName;
+  oldModel.lastName = hrx.lastName;
 
-  chat.date_modified = new Date();
+  hrx.date_modified = new Date();
 
   try {
     return await oldModel.save();
