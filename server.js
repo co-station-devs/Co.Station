@@ -22,7 +22,7 @@ const
   port = process.env.PORT || 3000,
   ip = process.env.IP || '0.0.0.0';
 
-  // Set up app
+// Set up app
 const app = express();
 
 // Fetch url from env
@@ -68,20 +68,19 @@ server.on('listening', onListening);
  * Setting up routes
  */
 
- // Api
+// Api
 app.use('/api/v1/users', require('./server/user/users.route').users(io));
 app.use('/api/v1/chats', require('./server/chat/chat.route').chats(io));
 app.use('/api/v1/hrx', require('./server/hrx/hrx.route').hrx(io));
 
-
+// resources
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Client
-app.use(function (req, res) {
+app.use('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-// resources
-app.use(express.static(path.join(__dirname, 'dist')));
 
 /**
  * Normalize a port into a number, string, or false.
