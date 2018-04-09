@@ -12,13 +12,14 @@ exports.process = async function (params) {
   const Translate = require('@google-cloud/translate');
 
   // Instantiates a client
+  let envTranslationApiKey = process.env.GOOGLE_API_TRANSLATION_CLIENT;
   const translate = new Translate({
     projectId: translationProjectId,
-    key: 'AIzaSyD5oXUYpsppyV-K8DtOdHXLytTsmJyclUE'
+    key: process.env.GOOGLE_API_TRANSLATION_CLIENT
   });
 
   let sessionClient;
-
+  // Check if dialogflow credentials are stored in system vars or heroku vars
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     sessionClient = new dialogflow.SessionsClient();
   } else {
@@ -60,6 +61,7 @@ exports.process = async function (params) {
           console.log(`  Response: ${result.fulfillmentText}`);
           if (result.intent) {
             params.message = result.fulfillmentText;
+            params.payload = result;
             console.log(`  Intent: ${result.intent.displayName}`);
           } else {
             console.log(`  No intent matched.`);
