@@ -1,7 +1,7 @@
 const User = require('./user.model');
 const ignoredValues = ['date_created', 'date_modified', '_id'];
 
-exports.list = async function (query, params) {
+exports.list = async function(query, params) {
   // Options setup for the mongoose paginate
   const options = {
     page: params.page,
@@ -15,11 +15,11 @@ exports.list = async function (query, params) {
     return await User.paginate(query, options);
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Users')
+    throw Error('Error while Paginating Users');
   }
 };
 
-exports.create = async function (user) {
+exports.create = async function(user) {
 
   // Creating a new Mongoose Object by using the new keyword
   const newModel = new User(user);
@@ -32,7 +32,7 @@ exports.create = async function (user) {
   } catch (e) {
 
     // return a Error message describing the reason
-    throw Error("Error while Creating User")
+    throw Error('Error while Creating User');
   }
 };
 
@@ -40,10 +40,10 @@ exports.read = async function read(id) {
   // Try Catch the awaited promise to handle the error
 
   try {
-    return await User.findOne({_id: id}).populate('hrx');
+    return await User.findOne({ _id: id }).populate('hrx');
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Users')
+    throw Error('Error while Paginating Users');
   }
 };
 
@@ -55,7 +55,7 @@ exports.update = async function update(user) {
     //Find the old User Object by the Id
     oldModel = await User.findById(id);
   } catch (e) {
-    throw Error("Error occured while Finding the User")
+    throw Error('Error occured while Finding the User');
   }
 
   // If no old User Object exists return false
@@ -66,28 +66,30 @@ exports.update = async function update(user) {
   oldModel.email = user.email;
   oldModel.firstName = user.firstName;
   oldModel.lastName = user.lastName;
+  oldModel.hrx = typeof user.hrx == Object ? user.hrx._id : user.hrx;
 
   oldModel.date_modified = new Date();
 
   try {
     return await oldModel.save();
   } catch (e) {
-    throw Error("And Error occured while updating the User");
+    throw Error('And Error occured while updating the User');
   }
 };
 
 
-exports.del = async function (id) {
+exports.del = async function(id) {
 
   // Delete the User
-  try {``
-    const deleted = await User.remove({_id: id});
+  try {
+    ``;
+    const deleted = await User.remove({ _id: id });
     if (deleted.result.n === 0) {
-      throw Error("User Could not be deleted")
+      throw Error('User Could not be deleted');
     }
-    return deleted
+    return deleted;
   } catch (e) {
-    throw Error("Error Occured while Deleting the User")
+    throw Error('Error Occured while Deleting the User');
   }
 };
 

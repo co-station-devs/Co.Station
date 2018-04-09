@@ -1,6 +1,9 @@
+
 const Chat = require('./chat.model');
 const ChatService = require('./chat.service');
-const AssistentService = require('../assistant/assistant.service');
+const UserService = require('../user/user.service');
+const HrxService = require('../hrx/hrx.service');
+const AssistantService = require('../assistant/assistant.service');
 const moment = require('moment');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
@@ -67,10 +70,18 @@ module.exports = function(io) {
       const createdModel = await ChatService.create(req.body);
       io.emit(`chatAdded_${createdModel.user}`, createdModel);
 
+      // Checking if users's HRX data is available
+      const user = await UserService.read(createdModel.user);
+
+      if (!user.hrx ) {
+        user.hrx = await HrxService.find(`${user.firstName}, ${user.lastName}`);
+        await UserService.update(user);
+      }
+
       // Get assistant answer
       // TODO: Buffer assistant's replies
       io.emit('thinking', true);
-      AssistentService.process(req.body).then(async r => {
+      AssistantService.process(req.body).then(async r => {
         const serverAnswer = await ChatService.create(r);
         io.emit(`chatAdded_${createdModel.user}`, serverAnswer);
         io.emit('thinking', false);
