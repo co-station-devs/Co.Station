@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Fetch url from env
-let mongoURL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://0.0.0.0';
+let mongoURL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://127.0.0.1';
 
 
 // Monogo connection

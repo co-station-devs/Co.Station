@@ -11,11 +11,11 @@
   "scripts": {
     "ng": "ng",
     "start": "node server",
-    "start:dev": "mongod --dbpath data --bind_ip 0.0.0.0",
+    "start:dev": "mongod --dbpath data --bind_ip_all",
     "build": "ng build",
     "heroku-postbuild": "ng build --env=prod",
     "dev": "ng serve",
-    "test": "jest --config jest/jest.config.json --runInBand",
+    "test": "jest --config src/jest/jest.config.json --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

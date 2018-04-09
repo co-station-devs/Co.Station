@@ -8,6 +8,7 @@ const app = require('./server/app');
 const debug = require('debug')('mean-app:server');
 const http = require('http');
 const socket = require('socket.io');
+const path = require('path');
 
 /**
  * Get port from environment and store in Express.
