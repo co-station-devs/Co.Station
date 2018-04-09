@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { ChatService } from '../../../chat/services/chat.service';
 import { HrxService } from '../../services/hrx.service';
-import { Hrx, StatusEnum } from '../../models/hrx.model';
+import { Hrx } from '../../models/hrx.model';
 import { assign } from 'rxjs/util/assign';
 
 @Component({
