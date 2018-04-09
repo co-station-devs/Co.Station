@@ -1,8 +1,8 @@
 <div fxFlex="20"></div>
 <div fxFlex fxFlexFill fxLayout="column">
   <div class="chat-conversation" #chat>
-    <div *ngFor="let i of conversation$ | async" class="message" [ngClass]="{'other': i.type == 0}">
-      <span>{{i.message}}</span>
+    <div *ngFor="let i of conversation$ | async" class="message">
+      <app-response [message]="i" [extended]="user.showExtra"></app-response>
     </div>
   </div>
   <div class="chat-input">

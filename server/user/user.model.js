@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   hrx: {type: mongoose.Schema.Types.ObjectId, ref: 'Hrx'},
+  showExtra: Boolean,
 
   date_created: Date,
   date_modified: Date
