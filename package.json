@@ -16,7 +16,7 @@
     "dev:client": "ng serve",
     "dev:mongo": "mongod --dbpath data --bind_ip_all",
     "dev:server": "node server",
-    "test": "jest --config jest/jest.config.json",
+    "test": "jest --config src/jest/jest.config.json",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
