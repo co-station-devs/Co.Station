@@ -12,7 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChatModule } from './chat/chat.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'user', pathMatch: 'full' },
+  { path: '*', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

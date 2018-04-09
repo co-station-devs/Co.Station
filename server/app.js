@@ -17,7 +17,7 @@ mongoose.connect(mongoURL, {useMongoClient: true, promiseLibrary: require('blueb
   .then(() => console.log('connection successful'))
   .catch((err) => console.error(err));
 
-// Config stuff
+// Config server
 app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());

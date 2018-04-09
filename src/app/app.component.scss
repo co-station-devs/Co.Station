@@ -1,9 +1,12 @@
 @import '~@angular/material/theming';
 @import '_shared/styles/variables';
 
-
 h1 {
   margin-left: 8px;
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
 }
 
 mat-sidenav {
@@ -36,6 +39,6 @@ mat-sidenav-container {
   flex: 1 0 auto;
 }
 
-mat-sidenav-content{
+mat-sidenav-content {
   padding: 10px;
 }
