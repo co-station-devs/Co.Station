@@ -14,7 +14,7 @@
     "build": "ng build",
     "heroku-postbuild": "ng build --env=prod",
     "dev:client": "ng serve",
-    "dev:mongo": "mongod --dbpath data --bind_ip 0.0.0.0",
+    "dev:mongo": "mongod --dbpath data --bind_ip_all",
     "dev:server": "node server",
     "test": "jest --config jest/jest.config.json",
     "lint": "ng lint",
