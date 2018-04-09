@@ -77,11 +77,11 @@ app.use('/api/v1/hrx', require('./server/hrx/hrx.route').hrx(io));
 
 // Client
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // resources
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 /**
  * Normalize a port into a number, string, or false.
