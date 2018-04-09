@@ -24,7 +24,7 @@ module.exports = function (service) {
 
         const items = await service.list({}, page, limit);
 
-        // Return the list with the appropriate HTTP Status Code and Message.
+        // Return the list with the appropriate HTTP status Code and Message.
 
         return res.status(200).json({status: 200, data: items, message: `Succesfully ${service.type}s Recieved`});
 

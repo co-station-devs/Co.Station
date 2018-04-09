@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
 
   isMobileView: boolean;
   subscriptionMedia: Subscription;
-  activeUser: User;
 
   constructor(
     private media: ObservableMedia,
@@ -36,7 +35,6 @@ export class AppComponent implements OnInit {
       this.isMobileView = change.mqAlias === 'xs' || change.mqAlias === 'sm';
     });
 
-    this.chatService.activeUserChanged.subscribe(u => this.activeUser = u);
     this.userService
       .list()
       .map(users => users.docs[0])

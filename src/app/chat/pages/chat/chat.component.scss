@@ -4,7 +4,6 @@ $spacing-between-chat-input: 30px;
   overflow: auto;
   padding: 10px;
   div.message {
-    margin-top: 5px;
     margin: 0 0 20px 20%;
     text-align: right;
     &.other {
@@ -25,7 +24,7 @@ $spacing-between-chat-input: 30px;
     }
   }
   &::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
     /* make scrollbar transparent */
   }

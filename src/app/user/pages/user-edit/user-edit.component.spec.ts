@@ -11,7 +11,7 @@ describe('UserEditComponent', () => {
     component = new UserEditComponent(null, null, null);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

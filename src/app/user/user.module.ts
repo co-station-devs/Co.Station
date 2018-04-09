@@ -7,6 +7,7 @@ import {UserService} from './services/user.service';
 import {UserFormGeneralComponent} from './components/user-form-general/user-form-general.component';
 import {UserEditComponent} from './pages/user-edit/user-edit.component';
 import {SharedModule} from '../_shared/shared.module';
+import { HrxService } from './services/hrx.service';
 
 const routes: Routes = [
   {path: 'user', component: UserListComponent},
@@ -27,7 +28,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService],
+  providers: [UserService, HrxService],
   exports: [RouterModule]
 })
 export class UserModule {

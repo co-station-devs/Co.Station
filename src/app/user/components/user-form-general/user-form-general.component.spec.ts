@@ -6,13 +6,12 @@ import { FormsModule } from '@angular/forms';
 
 describe('UserFormGeneralComponent', () => {
   let component: UserFormGeneralComponent;
-  let fixture: ComponentFixture<UserFormGeneralComponent>;
 
   beforeEach(() => {
     component = new UserFormGeneralComponent();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

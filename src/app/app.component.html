@@ -1,34 +1,34 @@
 <div class="container" [class.is-mobile]="isMobileView">
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sideMenu.open('mouse')" *ngIf="isMobileView">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <div>
-        <h1 [routerLink]="'./chat'">Co.Station dev app</h1>
-      </div>
-      <div fxFlex></div>
-      <div *ngIf="activeUser">
-        {{activeUser.fullName}}
-      </div>
-    </mat-toolbar>
-    <mat-sidenav-container [style.marginTop.px]="isMobileView ? 56 : 0">
-      <mat-sidenav #sideMenu mode="{{isMobileView?'over':'side'}}" opened="{{!isMobileView}}"
-                   disableClose="{{!isMobileView}}" [fixedInViewport]="isMobileView" fixedTopGap="56">
-        <mat-nav-list>
-          <a *ngFor="let navItem of navItems"
-             mat-list-item
-             routerLinkActive
-             #routerLinkActiveInstance="routerLinkActive"
-             [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
-             [routerLink]="[navItem.route]"
-              (click)="onLinkClick()"
-          >
-            {{navItem.name}}
-          </a>
-        </mat-nav-list>
-      </mat-sidenav>
-      <mat-sidenav-content>
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </div>
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sideMenu.open('mouse')" *ngIf="isMobileView">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div>
+      <h1><a [routerLink]="'./'">Co.Station dev app</a></h1>
+    </div>
+    <div fxFlex></div>
+    <div>
+      {{(chatService.activeUser$ | async)?.fullName}}
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container [style.marginTop.px]="isMobileView ? 56 : 0">
+    <mat-sidenav #sideMenu mode="{{isMobileView?'over':'side'}}" opened="{{!isMobileView}}"
+                 disableClose="{{!isMobileView}}" [fixedInViewport]="isMobileView" fixedTopGap="56">
+      <mat-nav-list>
+        <a *ngFor="let navItem of navItems"
+           mat-list-item
+           routerLinkActive
+           #routerLinkActiveInstance="routerLinkActive"
+           [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
+           [routerLink]="[navItem.route]"
+           (click)="onLinkClick()"
+        >
+          {{navItem.name}}
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

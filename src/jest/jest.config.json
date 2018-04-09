@@ -1,6 +1,6 @@
 {
   "preset": "jest-preset-angular",
-  "setupTestFrameworkScriptFile": "<rootDir>/jest/setupJest.js",
+  "setupTestFrameworkScriptFile": "<rootDir>/src/jest/setupJest.js",
   "transform": {
     "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
   },
@@ -17,13 +17,13 @@
   ],
   "globals": {
     "ts-jest": {
-      "tsConfigFile": "./tsconfig/tsconfig-test.json"
+      "tsConfigFile": "./src/tsconfig/tsconfig-test.json"
     },
     "__TRANSFORM_HTML__": true
   },
   "collectCoverage": true,
   "coverageDirectory": "<rootDir>/coverage",
-  "rootDir": "..",
+  "rootDir": "../..",
   "roots": [
     "<rootDir>/src/"
   ],

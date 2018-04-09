@@ -6,13 +6,12 @@ import { UserFormGeneralComponent } from '../../components/user-form-general/use
 
 describe('UserCreateComponent', () => {
   let component: UserCreateComponent;
-  let fixture: ComponentFixture<UserCreateComponent>;
 
   beforeEach(() => {
-    component = new UserCreateComponent(null, null)
+    component = new UserCreateComponent(null, null);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

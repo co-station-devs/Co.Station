@@ -14,9 +14,9 @@
     "pretty": true,
     "stripInternal": true,
     "skipLibCheck": true,
-    "outDir": "../dist",
-    "rootDir": "../tmp/src-inlined",
+    "outDir": "../../dist",
+    "rootDir": "../../tmp/src-inlined",
     "lib": ["es2016", "dom"]
   },
-  "files": ["../tmp/src-inlined/index.ts"]
+  "files": ["../../tmp/src-inlined/index.ts"]
 }

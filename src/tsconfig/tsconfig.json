@@ -15,8 +15,8 @@
     "emitDecoratorMetadata": true,
     "lib": ["es2016", "dom"],
     "typeRoots": [
-      "../node_modules/@types",
-      "../node_modules/@types"
+      "../../node_modules/@types",
+      "../../node_modules/@types"
     ],
     "types": ["jest", "node", "webpack", "webpack-env"],
     "noFallthroughCasesInSwitch": true,
@@ -25,11 +25,11 @@
     "noStrictGenericChecks": true,
     "noUnusedLocals": true
   },
-  "include": ["../src/**/*.ts"],
+  "include": ["../../src/**/*.ts"],
   "exclude": [
-    "../src/**/*.spec.ts",
-    "../node_modules",
-    "../demo",
-    "../dist"
+    "../../src/**/*.spec.ts",
+    "../../node_modules",
+    "../../demo",
+    "../../dist"
   ]
 }

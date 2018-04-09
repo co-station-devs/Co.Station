@@ -67,7 +67,7 @@ exports.update = async function update(chat) {
   oldModel.firstName = chat.firstName;
   oldModel.lastName = chat.lastName;
 
-  chat.date_modified = new Date();
+  oldModel.date_modified = new Date();
 
   try {
     return await oldModel.save();
@@ -80,7 +80,7 @@ exports.update = async function update(chat) {
 exports.del = async function (id) {
 
   // Delete the Chat
-  try {``
+  try {
     const deleted = await Chat.remove({_id: id});
     if (deleted.result.n === 0) {
       throw Error("Chat Could not be deleted")
