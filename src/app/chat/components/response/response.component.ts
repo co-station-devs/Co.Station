@@ -20,5 +20,4 @@ export class ResponseComponent implements OnInit {
       this.payload = JSON.parse(this.message.payload);
     }
   }
-
 }

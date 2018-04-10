@@ -1,6 +1,9 @@
 <div [ngClass]="{'assistant': assistant}">
   <div class="date">{{message.date_created | date:'short' }}</div>
-  <div class="message"  (click)="extended = !extended">{{message.message}}</div>
+  <div class="message" (click)="extended = !extended">
+    <p>{{message.message}}</p>
+    <small *ngIf="message.originalMessage">Original: {{message.originalMessage}}</small>
+  </div>
   <div *ngIf="extended">
     <pre>{{payload | json: 2}}</pre>
   </div>

@@ -12,13 +12,21 @@
   }
 }
 
-.message {
+.message{
   display: inline-block;
-  white-space: pre-line;
   border-radius: 10px;
   padding: 8px;
   border: 1px solid #ddd;
   color: #343434;
+
+  p, small{
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  small {
+    font-size: 0.7em;
+  }
 }
 
 .date {

@@ -64,6 +64,7 @@ exports.process = async function(params) {
     type: 0,
     user: params.user,
     message: translatedOutput[0],
+    originalMessage: firstIntentResult.fulfillmentText,
     payload: JSON.stringify(firstIntentResult)
   };
 
