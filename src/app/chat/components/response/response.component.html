@@ -2,7 +2,6 @@
   <div class="date">{{message.date_created | date:'short' }}</div>
   <div class="message" >{{message.message}}</div>
   <div *ngIf="extended">
-    test
     <pre>{{message.payload | json: 2}}</pre>
   </div>
 </div>

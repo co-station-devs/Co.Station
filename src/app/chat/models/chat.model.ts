@@ -7,6 +7,8 @@ export enum ChatType {
 }
 
 export class Chat extends MongoBase {
+  payload: any;
+
   constructor(
     public user?: User,
     public type?: ChatType,

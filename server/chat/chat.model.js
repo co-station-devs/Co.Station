@@ -8,6 +8,7 @@ const chatSchema = new mongoose.Schema({
   message: String,
   date_created: Date,
   date_modified: Date,
+  payload: mongoose.Schema.Types.Mixed
 });
 
 
