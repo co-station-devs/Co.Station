@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { map, merge, scan, share } from 'rxjs/operators';
 import { assign } from 'rxjs/util/assign';
+import { SpeechService } from '../../../_shared/services/speech.service';
 
 @Component({
   selector: 'app-chat',
@@ -25,13 +26,14 @@ export class ChatComponent implements OnInit, AfterViewInit {
   private user: User;
   private socket;
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, public speechService: SpeechService) {
   }
 
   ngOnInit() {
     this.socket = io.connect(environment.api_url);
     this.thinking$ = fromEvent(this.socket, 'thinking');
   }
+
 
   ngAfterViewInit() {
     this.chatService.activeUser$.subscribe(u => this.changeUser(u));

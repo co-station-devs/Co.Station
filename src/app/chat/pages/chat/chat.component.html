@@ -11,6 +11,8 @@
       <mat-icon>search</mat-icon>
       <input #query placeholder="Your search query" (keyup.enter)="addMessage(query.value)">
     </mat-card>
+    <button mat-button (click)="speechService.start()">Start</button>
+    <button mat-button (click)="speechService.stop()">Stop</button>
   </div>
 </div>
 <div fxFlex="20"></div>

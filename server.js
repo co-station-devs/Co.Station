@@ -63,6 +63,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+const translateController = require('./server/translation/translate.controller')(io);
 
 /**
  * Setting up routes

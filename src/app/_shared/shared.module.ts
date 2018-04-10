@@ -1,8 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MaterialModule} from '../material.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {FormsModule} from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { SpeechService } from './services/speech.service';
 
 @NgModule({
   imports: [
@@ -11,8 +12,8 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     FlexLayoutModule
   ],
-  declarations: [
-  ],
+  providers: [SpeechService, { provide: 'SPEECH_LANG', useValue: 'nl-BE' }],
+  declarations: [],
   exports: [
     // Sharing components
 
