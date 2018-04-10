@@ -64,8 +64,6 @@ module.exports = function(io) {
 
     // Req.Body contains the form submit values.
     try {
-
-
       // Calling the Service function with the new object from the Request Body
       const createdModel = await ChatService.create(req.body);
       io.emit(`chatAdded_${createdModel.user}`, createdModel);
@@ -78,18 +76,18 @@ module.exports = function(io) {
         await UserService.update(user);
       }
 
+
       // Get assistant answer
       // TODO: Buffer assistant's replies
       io.emit('thinking', true);
-      AssistantService.process(req.body).then(async r => {
-        const serverAnswer = await ChatService.create(r);
-        io.emit(`chatAdded_${createdModel.user}`, serverAnswer);
-        io.emit('thinking', false);
-      });
+      const assistantAnswer = await AssistantService.process(req.body);
+      const chatMessage = await ChatService.create(assistantAnswer);
+      io.emit(`chatAdded_${createdModel.user}`, chatMessage);
+      io.emit('thinking', false);
 
       return res.status(201).json({
         status: 201,
-        data: createdModel,
+        data: chatMessage,
         message: `Succesfully Created Chat`
       });
     } catch (e) {
@@ -97,7 +95,8 @@ module.exports = function(io) {
       //Return an Error Response Message with Code and the Error Message.
       return res.status(400).json({
         status: 400,
-        message: `Chat Creation was Unsuccesfull`
+        message: `Chat Creation was Unsuccesfull`,
+        error: e
       });
     }
   };

@@ -9,6 +9,7 @@ import { Chat, ChatType } from '../../models/chat.model';
 import { of } from 'rxjs/observable/of';
 import * as io from 'socket.io-client';
 import { environment } from '../../../../environments/environment';
+import { ResponseComponent } from '../../components/response/response.component';
 
 describe('Shallow test', () => {
   describe('ChatComponent', () => {
@@ -21,7 +22,7 @@ describe('Shallow test', () => {
         TestBed.configureTestingModule({
           providers: [ChatService],
           imports: [MaterialModule, HttpClientModule, BrowserAnimationsModule],
-          declarations: [ChatComponent]
+          declarations: [ChatComponent, ResponseComponent]
         }).compileComponents();
 
         chatService = TestBed.get(ChatService);
