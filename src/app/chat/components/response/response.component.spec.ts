@@ -16,6 +16,7 @@ describe('ResponseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ResponseComponent);
     component = fixture.componentInstance;
+    component.message = {type: 0};
     fixture.detectChanges();
   });
 
