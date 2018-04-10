@@ -1,7 +1,7 @@
 const Chat = require('./chat.model');
 const ignoredValues = ['date_created', 'date_modified', '_id'];
 
-exports.list = async function (query, params) {
+exports.list = async function(query, params) {
   // Options setup for the mongoose paginate
   const options = {
     page: params.page,
@@ -15,12 +15,11 @@ exports.list = async function (query, params) {
     return await Chat.paginate(query, options);
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Chats')
+    throw Error('Error while Paginating Chats');
   }
 };
 
-exports.create = async function (chat) {
-
+exports.create = async function(chat) {
   // Creating a new Mongoose Object by using the new keyword
   const newModel = new Chat(chat);
   newModel.date_created = new Date();
@@ -30,9 +29,9 @@ exports.create = async function (chat) {
     return await newModel.save();
 
   } catch (e) {
-
+    console.error('Error creating chat', e);
     // return a Error message describing the reason
-    throw Error("Error while Creating Chat")
+    throw Error('Error while Creating Chat');
   }
 };
 
@@ -40,10 +39,10 @@ exports.read = async function read(id) {
   // Try Catch the awaited promise to handle the error
 
   try {
-    return await Chat.findOne({_id: id});
+    return await Chat.findOne({ _id: id });
   } catch (e) {
     // return a Error message describing the reason
-    throw Error('Error while Paginating Chats')
+    throw Error('Error while Paginating Chats');
   }
 };
 
@@ -55,7 +54,7 @@ exports.update = async function update(chat) {
     //Find the old Chat Object by the Id
     oldModel = await Chat.findById(id);
   } catch (e) {
-    throw Error("Error occured while Finding the Chat")
+    throw Error('Error occured while Finding the Chat');
   }
 
   // If no old Chat Object exists return false
@@ -72,22 +71,22 @@ exports.update = async function update(chat) {
   try {
     return await oldModel.save();
   } catch (e) {
-    throw Error("And Error occured while updating the Chat");
+    throw Error('And Error occured while updating the Chat');
   }
 };
 
 
-exports.del = async function (id) {
+exports.del = async function(id) {
 
   // Delete the Chat
   try {
-    const deleted = await Chat.remove({_id: id});
+    const deleted = await Chat.remove({ _id: id });
     if (deleted.result.n === 0) {
-      throw Error("Chat Could not be deleted")
+      throw Error('Chat Could not be deleted');
     }
-    return deleted
+    return deleted;
   } catch (e) {
-    throw Error("Error Occured while Deleting the Chat")
+    throw Error('Error Occured while Deleting the Chat');
   }
 };
 
