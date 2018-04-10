@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResponseComponent } from './response.component';
+import { ChatType } from '../../models/chat.model';
 
 describe('ResponseComponent', () => {
   let component: ResponseComponent;
@@ -16,7 +17,7 @@ describe('ResponseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ResponseComponent);
     component = fixture.componentInstance;
-    component.message = {type: 0};
+    component.message = {type: ChatType.assistant};
     fixture.detectChanges();
   });
 

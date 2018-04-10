@@ -1,4 +1,3 @@
-
 const Chat = require('./chat.model');
 const ChatService = require('./chat.service');
 const UserService = require('../user/user.service');
@@ -49,9 +48,8 @@ module.exports = function(io) {
       });
 
     } catch (e) {
-
+      console.error('Listing chat failed', e);
       //Return an Error Response Message with Code and the Error Message.
-
       return res.status(400).json({
         status: 400,
         message: e.message
@@ -71,7 +69,7 @@ module.exports = function(io) {
       // Checking if users's HRX data is available
       const user = await UserService.read(createdModel.user);
 
-      if (!user.hrx ) {
+      if (!user.hrx) {
         user.hrx = await HrxService.find(`${user.firstName}, ${user.lastName}`);
         await UserService.update(user);
       }
@@ -91,6 +89,7 @@ module.exports = function(io) {
         message: `Succesfully Created Chat`
       });
     } catch (e) {
+      console.error('Creating chat failed', e);
 
       //Return an Error Response Message with Code and the Error Message.
       return res.status(400).json({

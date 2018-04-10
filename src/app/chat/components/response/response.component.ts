@@ -7,17 +7,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ResponseComponent implements OnInit {
   @Input() message;
-  assistant: boolean;
   @Input() extended = false;
+  assistant: boolean;
+  payload: any;
 
   constructor() {
   }
 
   ngOnInit() {
     this.assistant = this.message.type === 0;
-
-    // console.log(`Message`, this.message);
-
+    if (this.message.payload) {
+      this.payload = JSON.parse(this.message.payload);
+    }
   }
-
 }
