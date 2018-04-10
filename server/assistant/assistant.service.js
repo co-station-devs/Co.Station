@@ -1,7 +1,7 @@
-exports.process = async function (params) {
+exports.process = async function(params) {
 
   const projectId = 'timecreditagent';
-  const translationProjectId = 'arcelormittal-hr-chatbot'
+  const translationProjectId = 'arcelormittal-hr-chatbot';
   const sessionId = 'quickstart-session-id';
   const query = params.message;
   const languageCode = 'en-US';
@@ -34,49 +34,38 @@ exports.process = async function (params) {
 
   // Define session path
   const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+  // Translate input
+  const translatedInput = await translate.translate(query, 'en');
+  // Create request
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: translatedInput[0],
+        languageCode: languageCode
+      }
+    }
+  };
+  const intentResult = await sessionClient.detectIntent(request);
+  // Get first result
+  const firstIntentResult = intentResult[0].queryResult;
 
-  return translate
-    .translate(query, 'en')
-    .then(results => {
-      const translation = results[0];
-      // The text query request.
-      const request = {
-        session: sessionPath,
-        queryInput: {
-          text: {
-            text: translation,
-            languageCode: languageCode,
-          },
-        },
-      };
+  console.log('Detected intent');
+  console.log(`  Query: ${firstIntentResult.queryText}`);
+  console.log(`  Response: ${firstIntentResult.fulfillmentText}`);
+  console.log(firstIntentResult.intent ? `  Intent: ${firstIntentResult.intent.displayName}` : `  No intent matched.`);
 
-      // Send request and log result
-      return sessionClient
-        .detectIntent(request)
-        .then(responses => {
-          params.type = 0;
-          console.log('Detected intent');
-          const result = responses[0].queryResult;
-          console.log(`  Query: ${result.queryText}`);
-          console.log(`  Response: ${result.fulfillmentText}`);
-          if (result.intent) {
-            params.message = result.fulfillmentText;
-            params.payload = result;
-            console.log(`  Intent: ${result.intent.displayName}`);
-          } else {
-            console.log(`  No intent matched.`);
-          }
-          return params;
-        })
-        .catch(err => {
-          console.error('ERROR:', err);
-        });
-      console.log(`Text: ${text}`);
-      console.log(`Translation: ${translation}`);
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+// translate output back to nl
+  const translatedOutput = await translate.translate(firstIntentResult.fulfillmentText, 'nl');
 
 
-}
+  // Prepare our response chat
+  const result = {
+    type: 0,
+    user: params.user,
+    message: translatedOutput[0],
+    payload: firstIntentResult
+  };
+
+  return result;
+};
