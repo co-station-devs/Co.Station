@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {UserTableComponent} from './components/user-table/user-table.component';
 import {MaterialModule} from '../material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule} from '@angular/forms';
@@ -13,11 +12,9 @@ import {FormsModule} from '@angular/forms';
     FlexLayoutModule
   ],
   declarations: [
-    UserTableComponent
   ],
   exports: [
     // Sharing components
-    UserTableComponent,
 
     // Sharing modules
     CommonModule,

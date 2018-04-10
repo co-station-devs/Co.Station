@@ -13,6 +13,8 @@
     "!src/**/*.model.{ts,js}",
     "!src/**/*index.{ts,js}",
     "!src/*.ts",
+    "!src/environments/*.{ts,js}",
+    "!src/jest/*.{ts,js}",
     "!src/app/xml-typings.d.ts"
   ],
   "globals": {

@@ -4,8 +4,8 @@ import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 import { assign } from 'rxjs/util/assign';
-import { MongoResponse } from '../../../models/mongo.response';
-import { ListResponse } from '../../../models/mongo.list.response';
+import { MongoResponse } from '../../../models/mongo.response.model';
+import { ListResponse } from '../../../models/mongo.list.response.model';
 import { MongoBase } from '../models/mongo-base';
 import { cloneDeep } from 'lodash';
 
@@ -22,7 +22,10 @@ export class BaseService<T extends MongoBase> {
     return this.http
       .post(`${this.service_url}`, item)
       .map((res: MongoResponse<T>) => res.data)
-      .map(x => assign(cloneDeep(this.type), x));
+      .map(x => {
+        console.log(this.type, x);
+        return assign(cloneDeep(this.type), x);
+      });
   }
 
   // Read component, takes no arguments

@@ -5,16 +5,18 @@ import { MaterialModule } from '../../../material.module';
 import { RouterModule,  ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ChatService } from '../../../chat/services/chat.service';
+import { HrxService } from '../../services/hrx.service';
 
 
-describe('UserDetailComponent', () => {
+describe('[Isolated] UserDetailComponent', () => {
   let component: UserDetailComponent;
   const router: ActivatedRoute = {} as ActivatedRoute;
   const userService: UserService = {} as UserService;
+  const hrxService: HrxService = {} as HrxService;
   const chatService: ChatService = {} as ChatService;
 
   beforeEach(() => {
-    component = new UserDetailComponent(router, userService, chatService);
+    component = new UserDetailComponent(router, userService, hrxService, chatService);
   });
 
   test('should create', () => {

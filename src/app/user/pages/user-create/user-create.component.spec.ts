@@ -4,7 +4,7 @@ import { UserCreateComponent } from './user-create.component';
 import { MaterialModule } from '../../../material.module';
 import { UserFormGeneralComponent } from '../../components/user-form-general/user-form-general.component';
 
-describe('UserCreateComponent', () => {
+describe('[Isolated] UserCreateComponent', () => {
   let component: UserCreateComponent;
 
   beforeEach(() => {

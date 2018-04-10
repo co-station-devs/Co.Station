@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResponseComponent } from './response.component';
 import { ChatType } from '../../models/chat.model';
 
-describe('ResponseComponent', () => {
+describe('[Shallow] ResponseComponent', () => {
   let component: ResponseComponent;
   let fixture: ComponentFixture<ResponseComponent>;
 

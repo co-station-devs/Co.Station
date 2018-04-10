@@ -4,7 +4,7 @@ import { ChatType } from '../../models/chat.model';
 
 let component: ResponseComponent;
 const mockChatService = {}as ChatService;
-describe('ResponseComponent', () => {
+describe('[Isolated] ResponseComponent', () => {
 
   beforeEach(() => {
     component = new ResponseComponent();

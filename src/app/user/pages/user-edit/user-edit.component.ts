@@ -30,7 +30,7 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit(user: User) {
-    this.userService.read(user._id).subscribe(r => {
+    this.userService.update(user).subscribe(r => {
       this.router.navigate([`/user/`, r]);
     });
   }
