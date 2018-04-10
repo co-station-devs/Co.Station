@@ -4,7 +4,7 @@ import { UserFormGeneralComponent } from './user-form-general.component';
 import { MaterialModule } from '../../../material.module';
 import { FormsModule } from '@angular/forms';
 
-describe('UserFormGeneralComponent', () => {
+describe('[Isolated] UserFormGeneralComponent', () => {
   let component: UserFormGeneralComponent;
 
   beforeEach(() => {

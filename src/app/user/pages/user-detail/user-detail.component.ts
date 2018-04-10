@@ -35,22 +35,6 @@ export class UserDetailComponent implements OnInit {
         ));
   }
 
-  testCreate() {
-    const newModel = assign(new Hrx(), {
-      _id: '5acb48f175387825f8378f91',
-      firstName: 'Glenn',
-      lastName: 'Latomme',
-      postalCode: 9970,
-      status: 'Single',
-      seniorityEmployerYears: 2,
-      seniorityYears: 2,
-      age: 26
-    });
-    this.hrxService.update(newModel).subscribe(r => {
-      console.log(r);
-    });
-  }
-
   setActiveUser(user: User) {
     this.chatService.setActiveUser(user);
   }
