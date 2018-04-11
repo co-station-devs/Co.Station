@@ -6,12 +6,16 @@ exports.find = async function(name) {
   const names = name.replace(', ', ' ').replace(',', ' ').split(' ');
 
   try {
-    let query = names.length > 1 ? {
-      firstName: { $regex: names[0], $options: 'i' },
-      lastName: { $regex: names[1], $options: 'i' }
-    } : {
-      amei: { $regex: names[0], $options: 'i' }
-    };
+    let query;
+
+    if (names.length > 1) {
+      query = {
+        firstName: { $regex: names[0], $options: 'i' },
+        lastName: { $regex: names[1], $options: 'i' }
+      };
+    } else {
+      query = { amei: +names[0] };
+    }
     return await Hrx.findOne(query);
   } catch (e) {
     // return a Error message describing the reason
