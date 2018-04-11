@@ -70,7 +70,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
         new Chat(this.user, ChatType.user, this.queryInput.nativeElement.value)).subscribe(r => {
       }
     );
-    this.setConversationStream();
     this.queryInput.nativeElement.value = '';
   }
 
