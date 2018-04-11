@@ -9,8 +9,19 @@ exports.process = async function(params) {
   // Imports the Google Cloud client library
   const Translate = require('@google-cloud/translate');
 
+  let translate;
   // Instantiates a client
-  const translate = new Translate();
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    translate = new Translate();
+  } else {
+    translate = new Translate({
+      projectId: process.env.GOOGLE_PROJECT_ID,
+      credentials: {
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        client_email: process.env.GOOGLE_CLIENT_EMAIL
+      }
+    });
+  }
 
   let sessionClient;
   // Check if dialogflow credentials are stored in system vars or heroku vars
