@@ -3,7 +3,6 @@ import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
 declare let MediaRecorder: any;
 
 @Injectable()
@@ -14,6 +13,7 @@ export class SpeechService {
   private chunks = [];
 
   constructor() {
+    const audioContext = new AudioContext();
     this.socket = io.connect(environment.api_url);
 
     navigator.mediaDevices.getUserMedia({ audio: true }).then((mediaStream) => {
