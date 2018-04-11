@@ -6,19 +6,17 @@ exports.find = async function(name) {
   const names = name.replace(', ', ' ').replace(',', ' ').split(' ');
 
   try {
-    let first = await Hrx.findOne(
-      {
+    let query;
+
+    if (names.length > 1) {
+      query = {
         firstName: { $regex: names[0], $options: 'i' },
         lastName: { $regex: names[1], $options: 'i' }
-      });
-    if (first != null) {
-      return first;
+      };
+    } else {
+      query = { amei: { $eq: +name } };
     }
-    return await Hrx.findOne(
-      {
-        firstName: { $regex: names[1], $options: 'i' },
-        lastName: { $regex: names[0], $options: 'i' }
-      });
+    return await Hrx.findOne(query);
   } catch (e) {
     // return a Error message describing the reason
     throw Error('Error while Paginating Hrx');

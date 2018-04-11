@@ -6,6 +6,7 @@ const hrxSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   age: Number,
+  amei: Number,
   seniorityYears: Number,
   seniorityEmployerYears: Number,
   postalCode: Number,

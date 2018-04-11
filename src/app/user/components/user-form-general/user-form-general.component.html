@@ -13,6 +13,26 @@
       <mat-form-field class="fullWidth">
         <input matInput placeholder="Email" id="email" [(ngModel)]="user.email" name="email" type="email"/>
       </mat-form-field>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Amei" id="amei" [(ngModel)]="user.amei" name="amei"/>
+      </mat-form-field>
     </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>HRX</mat-card-title>
+    </mat-card-header>
+    <mat-form-field class="fullWidth">
+      <input matInput placeholder="Postcode" id="PostalCode" [(ngModel)]="user.hrx.postalCode" name="postalcode"/>
+    </mat-form-field>
+    <mat-form-field class="fullWidth">
+      <input matInput placeholder="Werkervaring" id="seniorityYears" [(ngModel)]="user.hrx.seniorityYears"
+             name="seniorityYears"/>
+    </mat-form-field>
+    <mat-form-field class="fullWidth">
+      <input matInput placeholder="Werkervaring bij ArcelorMittal" id="seniorityEmployerYears"
+             [(ngModel)]="user.hrx.seniorityEmployerYears" name="seniorityEmployerYears"/>
+    </mat-form-field>
   </mat-card>
 </div>

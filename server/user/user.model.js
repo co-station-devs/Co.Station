@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   email: String,
   firstName: String,
   lastName: String,
+  amei: Number,
   hrx: {type: mongoose.Schema.Types.ObjectId, ref: 'Hrx'},
   showExtra: Boolean,
 
