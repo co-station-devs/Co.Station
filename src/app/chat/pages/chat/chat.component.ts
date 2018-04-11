@@ -105,7 +105,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     // Combine our initial Data with the socket data into conversation stream
     this.conversation$ = initialData.pipe(
       merge(socketIO),
-      takeUntil(this.ngUnSubscribe),
       scan((acc: Chat[], x: Chat) => acc.concat([assign(new Chat(), x)])),
       map(r => {
         // scroll to bottom
