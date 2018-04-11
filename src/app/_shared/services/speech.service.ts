@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 
+declare let window: any;
+declare let URL: any;
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 declare let MediaRecorder: any;
 
@@ -11,9 +14,10 @@ export class SpeechService {
   private socket;
   private running: boolean;
   private chunks = [];
+  private audioContext;
 
   constructor() {
-    const audioContext = new AudioContext();
+    this.audioContext = new AudioContext();
     this.socket = io.connect(environment.api_url);
 
     navigator.mediaDevices.getUserMedia({ audio: true }).then((mediaStream) => {
@@ -47,10 +51,9 @@ export class SpeechService {
       const request = new XMLHttpRequest();
 
 
-      const arrayBuffer;
       const fileReader = new FileReader();
-      fileReader.onload = (result) => {
-        audioContext.decodeAudioData(result.target.result as ArrayBuffer, (buffer) => {
+      fileReader.onload = (result: any) => {
+        this.audioContext.decodeAudioData(result.target.result as ArrayBuffer, (buffer) => {
             if (!buffer) {
               console.log('buffer is empty!');
             }
@@ -150,7 +153,7 @@ export class SpeechService {
 
   private floatTo16BitPCM(output, offset, input) {
     for (let i = 0; i < input.length; i++, offset += 2) {
-      let s = Math.max(-1, Math.min(1, input[i]));
+      const s = Math.max(-1, Math.min(1, input[i]));
       output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
     }
   }
