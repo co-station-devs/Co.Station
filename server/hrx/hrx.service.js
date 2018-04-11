@@ -14,7 +14,7 @@ exports.find = async function(name) {
         lastName: { $regex: names[1], $options: 'i' }
       };
     } else {
-      query = { amei: +names[0] };
+      query = { amei: { $eq: +names[0] } };
     }
     return await Hrx.findOne(query);
   } catch (e) {
