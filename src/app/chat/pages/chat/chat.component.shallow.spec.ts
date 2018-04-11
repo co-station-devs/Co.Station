@@ -8,6 +8,12 @@ import { User } from '../../../user/models/user.model';
 import { Chat, ChatType } from '../../models/chat.model';
 import { of } from 'rxjs/observable/of';
 import { ResponseComponent } from '../../components/response/response.component';
+import { SpeechService } from '../../../_shared/services/speech.service';
+window.AudioContext = jest.fn().mockImplementation(() => {
+  return {};
+});
+
+navigator.mediaDevices = { getUserMedia: jest.fn() };
 
 describe('[Shallow] ChatComponent', () => {
   let component: ChatComponent;
@@ -16,9 +22,11 @@ describe('[Shallow] ChatComponent', () => {
 
   beforeEach(
     async(() => {
+      navigator.mediaDevices.getUserMedia.mockReturnValue(new Promise(() => {
+      }));
       TestBed.configureTestingModule({
-        providers: [ChatService],
-        imports: [MaterialModule, HttpClientModule, BrowserAnimationsModule],
+        providers: [ChatService, SpeechService],
+        imports: [MaterialModule, HttpClientModule, BrowserAnimationsModule ],
         declarations: [ChatComponent, ResponseComponent]
       }).compileComponents();
 
@@ -41,9 +49,10 @@ describe('[Shallow] ChatComponent', () => {
     const user: User = new User('753');
     chatService.setActiveUser(user);
     spyOn(chatService, 'addMessage').and.returnValue(of({}));
+    component.queryInput.nativeElement.value = 'Hello';
 
     // Act
-    component.addMessage('Hello');
+    component.addMessage();
 
     // Assert
     expect(component.queryInput.nativeElement.value).toEqual('');
