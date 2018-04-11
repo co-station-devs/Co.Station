@@ -14,7 +14,8 @@ export class BaseService<T extends MongoBase> {
   service_url = '';
   type: T;
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {
+  }
 
   // Create component, takes a T Object
   public create(item: T): Observable<any> {
@@ -22,10 +23,7 @@ export class BaseService<T extends MongoBase> {
     return this.http
       .post(`${this.service_url}`, item)
       .map((res: MongoResponse<T>) => res.data)
-      .map(x => {
-        console.log(this.type, x);
-        return assign(cloneDeep(this.type), x);
-      });
+      .map(x => assign(cloneDeep(this.type), x));
   }
 
   // Read component, takes no arguments

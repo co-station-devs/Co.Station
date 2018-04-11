@@ -7,9 +7,12 @@
   </div>
   <div class="chat-input">
     <div class="typing" *ngIf="thinking$ | async">Assistant is typing ...</div>
-    <mat-card>
-      <mat-icon>search</mat-icon>
-      <input #query placeholder="Your search query" (keyup.enter)="addMessage(query.value)">
+    <div class="typing" *ngIf="speaking">Listening ...</div>
+    <mat-card [ngClass]="{'listening' : speaking}">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input #query placeholder="Your search query" (keyup.enter)="addMessage()" [disabled]="listening">
+      <button class="speak-icon" mat-icon-button (click)="startSpeaking()" *ngIf="!speaking"><mat-icon>mic</mat-icon></button>
+      <button class="speak-icon" mat-icon-button *ngIf="speaking">...</button>
     </mat-card>
   </div>
 </div>

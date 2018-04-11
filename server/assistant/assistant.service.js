@@ -1,7 +1,5 @@
 exports.process = async function(params) {
 
-  const projectId = 'timecreditagent';
-  const translationProjectId = 'arcelormittal-hr-chatbot';
   const sessionId = 'quickstart-session-id';
   const query = params.message;
   const languageCode = 'en-US';
@@ -12,11 +10,7 @@ exports.process = async function(params) {
   const Translate = require('@google-cloud/translate');
 
   // Instantiates a client
-  let envTranslationApiKey = process.env.GOOGLE_API_TRANSLATION_CLIENT;
-  const translate = new Translate({
-    projectId: translationProjectId,
-    key: process.env.GOOGLE_API_TRANSLATION_CLIENT
-  });
+  const translate = new Translate();
 
   let sessionClient;
   // Check if dialogflow credentials are stored in system vars or heroku vars
@@ -33,7 +27,7 @@ exports.process = async function(params) {
   }
 
   // Define session path
-  const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+  const sessionPath = sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId);
   // Translate input
   const translatedInput = await translate.translate(query, 'en');
   // Create request
