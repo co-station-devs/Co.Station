@@ -1,5 +1,18 @@
 const speech = require('@google-cloud/speech');
-const client = new speech.SpeechClient();
+
+let client;
+// Instantiates a client
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  client = new speech.SpeechClient();
+} else {
+  client = new speech.SpeechClient({
+    projectId: process.env.GOOGLE_PROJECT_ID,
+    credentials: {
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL
+    }
+  });
+}
 
 exports.translate = async function(input) {
   const result = await client.recognize({
