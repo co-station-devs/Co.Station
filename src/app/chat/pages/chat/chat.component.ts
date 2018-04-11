@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { User } from '../../../user/models/user.model';
 import { Chat, ChatType } from '../../models/chat.model';
@@ -6,32 +6,57 @@ import * as io from 'socket.io-client';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { map, merge, scan, share } from 'rxjs/operators';
+import { distinctUntilChanged, map, merge, scan, share, takeUntil } from 'rxjs/operators';
 import { assign } from 'rxjs/util/assign';
 import { SpeechService } from '../../../_shared/services/speech.service';
+import { Subject } from 'rxjs/Subject';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, AfterViewInit {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('chat') chatContainer: ElementRef;
   @ViewChild('query') queryInput: ElementRef;
 
   conversation$: Observable<Chat[]>;
   thinking$: Observable<boolean>;
   thinking: boolean;
+  speaking: boolean;
+
+  private ngUnSubscribe: Subject<void> = new Subject<void>();
+  private speakingInterval: Observable<number>;
+
 
   private user: User;
   private socket;
 
-  constructor(private chatService: ChatService, public speechService: SpeechService) {
+  constructor(
+    private chatService: ChatService,
+    public speechService: SpeechService
+  ) {
   }
 
   ngOnInit() {
     this.socket = io.connect(environment.api_url);
     this.thinking$ = fromEvent(this.socket, 'thinking');
+    fromEvent(this.socket, 'transcription')
+      .pipe(
+        distinctUntilChanged()
+      )
+      .subscribe(r => {
+        this.resetInterval();
+        this.queryInput.nativeElement.value = r;
+      });
+
+    this.speakingInterval = IntervalObservable.create(2000);
+  }
+
+  ngOnDestroy() {
+    this.ngUnSubscribe.next();
+    this.ngUnSubscribe.complete();
   }
 
 
@@ -39,14 +64,30 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.chatService.activeUser$.subscribe(u => this.changeUser(u));
   }
 
-  addMessage(message: string) {
+  addMessage() {
     this.chatService
       .addMessage(
-        new Chat(this.user, ChatType.user, message)).subscribe(r => {
+        new Chat(this.user, ChatType.user, this.queryInput.nativeElement.value)).subscribe(r => {
       }
     );
+    this.setConversationStream();
     this.queryInput.nativeElement.value = '';
   }
+
+  startSpeaking() {
+    this.speechService.start();
+    this.startInterval();
+  }
+
+  finishedSpeaking() {
+    this.speaking = false;
+    this.speechService.stop();
+    this.ngUnSubscribe.next();
+    if (this.queryInput.nativeElement.value) {
+      this.addMessage();
+    }
+  }
+
 
   private changeUser(user: User) {
     if (!user) {
@@ -64,6 +105,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     // Combine our initial Data with the socket data into conversation stream
     this.conversation$ = initialData.pipe(
       merge(socketIO),
+      takeUntil(this.ngUnSubscribe),
       scan((acc: Chat[], x: Chat) => acc.concat([assign(new Chat(), x)])),
       map(r => {
         // scroll to bottom
@@ -81,5 +123,18 @@ export class ChatComponent implements OnInit, AfterViewInit {
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
     } catch (err) {
     }
+  }
+
+  private startInterval() {
+    this.speaking = true;
+    this.speakingInterval
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((value) => this.finishedSpeaking());
+  }
+
+
+  private resetInterval() {
+    this.ngUnSubscribe.next();
+    this.startInterval();
   }
 }
