@@ -15,8 +15,6 @@ export class Hrx extends MongoBase {
     public date_modified?: Date
   ) {
     super(_id);
-
-    console.log('Constructing');
   }
 
   get fullName(): string {
