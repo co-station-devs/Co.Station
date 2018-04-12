@@ -40,14 +40,14 @@
 
       <mat-form-field class="fullWidth">
         <input matInput [matDatepicker]="seniorityYears" placeholder="Choose a date"
-               [(ngModel)]="user.hrx.seniorityYears">
+               [(ngModel)]="user.hrx.startWorkingDate">
         <mat-datepicker-toggle matSuffix [for]="seniorityYears"></mat-datepicker-toggle>
         <mat-datepicker #seniorityYears></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="fullWidth">
         <input matInput [matDatepicker]="seniorityEmployerYears" placeholder="Werkervaring bij ArcelorMittal"
-               [(ngModel)]="user.hrx.seniorityEmployerYears">
+               [(ngModel)]="user.hrx.startWorkingAtAmDate">
         <mat-datepicker-toggle matSuffix [for]="seniorityEmployerYears"></mat-datepicker-toggle>
         <mat-datepicker #seniorityEmployerYears></mat-datepicker>
       </mat-form-field>

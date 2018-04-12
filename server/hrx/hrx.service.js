@@ -70,8 +70,8 @@ exports.update = async function update(hrx) {
 
   oldModel.firstName = hrx.firstName;
   oldModel.lastName = hrx.lastName;
-  oldModel.seniorityEmployerYears = hrx.seniorityEmployerYears;
-  oldModel.seniorityYears = hrx.seniorityYears;
+  oldModel.startWorkingAtAmDate = hrx.startWorkingAtAmDate;
+  oldModel.startWorkingDate = hrx.startWorkingDate;
   oldModel.status = hrx.status;
   oldModel.postalCode = hrx.postalCode;
   oldModel.birthDate = hrx.birthDate;

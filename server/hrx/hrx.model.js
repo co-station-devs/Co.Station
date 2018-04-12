@@ -7,8 +7,8 @@ const hrxSchema = new mongoose.Schema({
   lastName: String,
   birthDate: Date,
   amei: Number,
-  seniorityYears: Date,
-  seniorityEmployerYears: Date,
+  startWorkingDate: Date,
+  startWorkingAtAmDate: Date,
   postalCode: Number,
   status: {
     type: String,

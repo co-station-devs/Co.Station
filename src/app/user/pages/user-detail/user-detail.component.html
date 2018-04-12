@@ -30,8 +30,8 @@
           <mat-list>
             <mat-list-item> email: {{ user.email}}</mat-list-item>
             <div *ngIf="user.hrx">
-              <mat-list-item> Ancienniteit: {{ user.hrx.seniorityYears | date}}</mat-list-item>
-              <mat-list-item> Ancienniteit Employer: {{ user.hrx.seniorityEmployerYears| date}}</mat-list-item>
+              <mat-list-item> Ancienniteit: {{ user.hrx.startWorkingDate | date}}</mat-list-item>
+              <mat-list-item> Ancienniteit Employer: {{ user.hrx.startWorkingAtAmDate| date}}</mat-list-item>
               <mat-list-item> Postcode: {{ user.hrx.postalCode}}</mat-list-item>
               <mat-list-item> Status: {{ user.hrx.status}}</mat-list-item>
               <mat-list-item> Age: {{ user.hrx.age}}</mat-list-item>
