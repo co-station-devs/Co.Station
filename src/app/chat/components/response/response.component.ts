@@ -12,7 +12,7 @@ export class ResponseComponent implements OnInit {
   payload: any;
   finalMessage: boolean;
 
-  constructor() {
+ constructor() {
   }
 
   ngOnInit() {
