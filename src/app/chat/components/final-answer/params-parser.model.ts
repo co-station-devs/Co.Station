@@ -7,7 +7,6 @@ export class ParamsParser {
   Id: string;
   IsPlanned: boolean;
   LastName: string;
-  MaritalStatus: String;
   PostalCode: Number;
   StartWorkingAtAmDate: Date;
   birthDate: Date;
