@@ -1,3 +1,7 @@
 <mat-card>
-  {{params.FirstName.stringValue}} heeft succesvol de aanvraag gedaan
+  {{parameters.FirstName}} heeft succesvol de aanvraag gedaan
+
+  <mat-nav-list>
+    <mat-list-item *ngFor="let msg of messages">{{msg}}</mat-list-item>
+  </mat-nav-list>
 </mat-card>
