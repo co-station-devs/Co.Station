@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../_shared/shared.module';
 import { ResponseComponent } from './components/response/response.component';
 
-const routes: Routes = [{ path: '', component: ChatComponent }];
+const routes: Routes = [{ path: 'chat', component: ChatComponent }];
 
 @NgModule({
   declarations: [ChatComponent, ResponseComponent],

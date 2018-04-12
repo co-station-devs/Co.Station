@@ -6,6 +6,17 @@
     <div>
       <h1><a [routerLink]="'./'">Co.Station dev app</a></h1>
     </div>
+    <div class="search"
+         fxFlex="40"
+         fxFlex.sm="100">
+      <div class="search-bar">
+        <mat-icon>search</mat-icon>
+        <input flex
+               [(ngModel)]="searchInputValue"
+               (keydown)="onSearch($event)"
+               placeholder="What do you want to find?" />
+      </div>
+    </div>
     <div fxFlex></div>
     <div>
       {{(chatService.activeUser$ | async)?.fullName}}

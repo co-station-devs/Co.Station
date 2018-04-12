@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChatModule } from './chat/chat.module';
 import { MomentModule } from 'angular2-moment';
+import { LandingModule } from './landing/landing.module';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
     MomentModule,
     MaterialModule,
     ChatModule,
+    LandingModule,
     RouterModule.forRoot(routes, { enableTracing: false }),
     UserModule
   ],

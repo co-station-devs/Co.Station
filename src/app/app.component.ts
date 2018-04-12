@@ -3,7 +3,6 @@ import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs/Subscription';
 import { MatSidenav } from '@angular/material';
 import { UserService } from './user/services/user.service';
-import { User } from './user/models/user.model';
 import { ChatService } from './chat/services/chat.service';
 
 @Component({
@@ -16,6 +15,7 @@ import { ChatService } from './chat/services/chat.service';
 })
 export class AppComponent implements OnInit {
   @ViewChild('sideMenu') sideMenu: MatSidenav;
+  private searchInputValue: string;
 
   navItems = [{ name: 'Users', route: '/user' }];
 
@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
     private media: ObservableMedia,
     private chatService: ChatService,
     private userService: UserService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isMobileView = this.media.isActive('xs') || this.media.isActive('sm');
@@ -45,5 +46,14 @@ export class AppComponent implements OnInit {
     if (this.isMobileView) {
       this.sideMenu.close();
     }
+  }
+
+  /**
+   * Function which triggers the search app depending on the confugured SearchClientUri in config.xml
+   *
+   * @param {*} event
+   * @memberof TopbarComponent
+   */
+  onSearch(event: any) {
   }
 }
