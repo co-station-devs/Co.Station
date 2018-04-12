@@ -17,6 +17,15 @@
         <input matInput placeholder="Amei" id="amei" [(ngModel)]="user.amei" name="amei"/>
       </mat-form-field>
     </mat-card-content>
+
+    <mat-form-field class="fullWidth">
+      <mat-select placeholder="Language" [(ngModel)]="user.lang">
+        <mat-option value="nl">Nederlands</mat-option>
+        <mat-option value="en">Engels</mat-option>
+        <mat-option value="fr">Frans</mat-option>
+        <mat-option value="de">Duits</mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-card>
 
   <mat-card>
@@ -39,14 +48,14 @@
       </mat-form-field>
 
       <mat-form-field class="fullWidth">
-        <input matInput [matDatepicker]="startWorkingDate" placeholder="Choose a date"
+        <input matInput [matDatepicker]="startWorkingDate" placeholder="Begonnen met werken"
                [(ngModel)]="user.hrx.startWorkingDate">
         <mat-datepicker-toggle matSuffix [for]="startWorkingDate"></mat-datepicker-toggle>
         <mat-datepicker #startWorkingDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="fullWidth">
-        <input matInput [matDatepicker]="startWorkingAtAmDate" placeholder="Werkervaring bij ArcelorMittal"
+        <input matInput [matDatepicker]="startWorkingAtAmDate" placeholder="Begonnen met werken voor ArcelorMittal"
                [(ngModel)]="user.hrx.startWorkingAtAmDate">
         <mat-datepicker-toggle matSuffix [for]="startWorkingAtAmDate"></mat-datepicker-toggle>
         <mat-datepicker #startWorkingAtAmDate></mat-datepicker>

@@ -1,4 +1,4 @@
-const User = require('./user.model');
+const User = require('./user.model').Model;
 const UserService = require('./user.service');
 const HrxService = require('../hrx/hrx.service');
 
