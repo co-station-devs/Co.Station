@@ -1,5 +1,4 @@
-exports.process = async function(params) {
-
+exports.process = async function(params, user) {
   const sessionId = 'quickstart-session-id';
   const query = params.message;
   const languageCode = 'en-US';
@@ -38,7 +37,9 @@ exports.process = async function(params) {
   }
 
   // Define session path
-  const sessionPath = sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId);
+  const sessionPath = `${sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId)}-${user}`;
+  console.log(`Current session: ${sessionPath}`);
+
   // Translate input
   const translatedInput = await translate.translate(query, 'en');
   // Create request
