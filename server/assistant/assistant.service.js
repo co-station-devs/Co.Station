@@ -1,46 +1,52 @@
-exports.process = async function(params, user) {
-  const sessionId = 'quickstart-session-id';
+const sessionId = 'quickstart-session-id';
+const languageCode = 'en-US';
+
+const dialogflow = require('dialogflow');
+
+// Imports the Google Cloud client library
+const Translate = require('@google-cloud/translate');
+
+let translate;
+// Instantiates a client
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  translate = new Translate();
+} else {
+  translate = new Translate({
+    projectId: process.env.GOOGLE_PROJECT_ID,
+    credentials: {
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL
+    }
+  });
+}
+
+let sessionClient;
+// Check if dialogflow credentials are stored in system vars or heroku vars
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  sessionClient = new dialogflow.SessionsClient();
+} else {
+  sessionClient = new dialogflow.SessionsClient({
+    projectId: process.env.GOOGLE_PROJECT_ID,
+    credentials: {
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL
+    }
+  });
+}
+
+const sessionBase = sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId);
+
+exports.process = async function(params, userId, userLang) {
   const query = params.message;
-  const languageCode = 'en-US';
-
-  const dialogflow = require('dialogflow');
-
-  // Imports the Google Cloud client library
-  const Translate = require('@google-cloud/translate');
-
-  let translate;
-  // Instantiates a client
-  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    translate = new Translate();
-  } else {
-    translate = new Translate({
-      projectId: process.env.GOOGLE_PROJECT_ID,
-      credentials: {
-        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-        client_email: process.env.GOOGLE_CLIENT_EMAIL
-      }
-    });
-  }
-
-  let sessionClient;
-  // Check if dialogflow credentials are stored in system vars or heroku vars
-  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    sessionClient = new dialogflow.SessionsClient();
-  } else {
-    sessionClient = new dialogflow.SessionsClient({
-      projectId: process.env.GOOGLE_PROJECT_ID,
-      credentials: {
-        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-        client_email: process.env.GOOGLE_CLIENT_EMAIL
-      }
-    });
-  }
-
-  // Define session path
-  const sessionPath = `${sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId)}-${user}`;
+// Define session path
+  const sessionPath = `${sessionBase}-${userId}`;
 
   // Translate input
-  const translatedInput = await translate.translate(query, 'en');
+
+  const translatedInput = await translate.translate(query, {to: 'en', from: userLang});
+  console.log(`Translating ${query}(${userLang}) to ${JSON.stringify(translatedInput)}`);
+
+
   // Create request
   const request = {
     session: sessionPath,
