@@ -67,7 +67,8 @@ exports.update = async function update(user) {
   oldModel.firstName = user.firstName;
   oldModel.lastName = user.lastName;
   oldModel.amei = user.amei;
-  oldModel.hrx = typeof user.hrx == Object ? user.hrx._id : user.hrx;
+  oldModel.showExtra = user.showExtra;
+  oldModel.showTranslations = user.showTranslations;
 
   oldModel.date_modified = new Date();
 

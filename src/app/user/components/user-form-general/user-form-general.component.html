@@ -23,16 +23,53 @@
     <mat-card-header>
       <mat-card-title>HRX</mat-card-title>
     </mat-card-header>
-    <mat-form-field class="fullWidth">
-      <input matInput placeholder="Postcode" id="PostalCode" [(ngModel)]="user.hrx.postalCode" name="postalcode"/>
-    </mat-form-field>
-    <mat-form-field class="fullWidth">
-      <input matInput placeholder="Werkervaring" id="seniorityYears" [(ngModel)]="user.hrx.seniorityYears"
-             name="seniorityYears"/>
-    </mat-form-field>
-    <mat-form-field class="fullWidth">
-      <input matInput placeholder="Werkervaring bij ArcelorMittal" id="seniorityEmployerYears"
-             [(ngModel)]="user.hrx.seniorityEmployerYears" name="seniorityEmployerYears"/>
-    </mat-form-field>
+    <mat-card-content>
+
+
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Postcode" id="PostalCode" [(ngModel)]="user.hrx.postalCode" name="postalcode"
+               type="number"/>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth">
+        <input matInput [matDatepicker]="age" placeholder="Geboorte datum"
+               [(ngModel)]="user.hrx.birthDate">
+        <mat-datepicker-toggle matSuffix [for]="age"></mat-datepicker-toggle>
+        <mat-datepicker #age></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth">
+        <input matInput [matDatepicker]="startWorkingDate" placeholder="Choose a date"
+               [(ngModel)]="user.hrx.startWorkingDate">
+        <mat-datepicker-toggle matSuffix [for]="startWorkingDate"></mat-datepicker-toggle>
+        <mat-datepicker #startWorkingDate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth">
+        <input matInput [matDatepicker]="startWorkingAtAmDate" placeholder="Werkervaring bij ArcelorMittal"
+               [(ngModel)]="user.hrx.startWorkingAtAmDate">
+        <mat-datepicker-toggle matSuffix [for]="startWorkingAtAmDate"></mat-datepicker-toggle>
+        <mat-datepicker #startWorkingAtAmDate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth">
+        <mat-select placeholder="Status" [(ngModel)]="user.hrx.status">
+          <mat-option>None</mat-option>
+          <mat-option value="Single">Single</mat-option>
+          <mat-option value="Married">Getrouwd</mat-option>
+          <mat-option value="LivingTogether">Samenwonend</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Extras</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-slide-toggle [(ngModel)]="user.showExtra">Show extra</mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="user.showTranslations">Show translations</mat-slide-toggle>
+    </mat-card-content>
   </mat-card>
 </div>

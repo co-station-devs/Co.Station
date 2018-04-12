@@ -63,7 +63,6 @@ export class SpeechService {
             console.error(error);
           }
         );
-        console.log();
       };
       fileReader.readAsArrayBuffer(blob);
     }
