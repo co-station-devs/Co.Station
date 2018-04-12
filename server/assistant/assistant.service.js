@@ -38,7 +38,6 @@ exports.process = async function(params, user) {
 
   // Define session path
   const sessionPath = `${sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId)}-${user}`;
-  console.log(`Current session: ${sessionPath}`);
 
   // Translate input
   const translatedInput = await translate.translate(query, 'en');
