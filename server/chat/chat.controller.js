@@ -77,11 +77,11 @@ module.exports = function(io) {
 
       // Get assistant answer
       // TODO: Buffer assistant's replies
-      io.emit('thinking', true);
-      const assistantAnswer = await AssistantService.process(req.body);
+      io.emit(`thinking_${user._id}`, true);
+      const assistantAnswer = await AssistantService.process(req.body, user._id);
       const chatMessage = await ChatService.create(assistantAnswer);
       io.emit(`chatAdded_${createdModel.user}`, chatMessage);
-      io.emit('thinking', false);
+      io.emit(`thinking_${user._id}`, false);
 
       return res.status(201).json({
         status: 201,

@@ -14,10 +14,10 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
   });
 }
 
-exports.translate = async function(input) {
+exports.transcript = async function(blob) {
   const result = await client.recognize({
     audio: {
-      content: input.blob
+      content: blob
     },
     config: {
       encoding: 'LINEAR16',
@@ -28,7 +28,9 @@ exports.translate = async function(input) {
   }).catch(e => {
     console.error('Error transcripting audio', e);
   });
-
+  if (!result) {
+    return null;
+  }
   const response = result[0];
   if (response.results.length < 0) {
     return null;
