@@ -11,6 +11,7 @@ import { assign } from 'rxjs/util/assign';
 import { SpeechService } from '../../../_shared/services/speech.service';
 import { Subject } from 'rxjs/Subject';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-chat',
@@ -26,6 +27,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   thinking: boolean;
   speaking: boolean;
 
+  private sessionId = +moment().format('x');
   private ngUnSubscribe: Subject<void> = new Subject<void>();
   private speakingInterval: Observable<number>;
 
@@ -41,16 +43,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.socket = io.connect(environment.api_url);
-    this.thinking$ = fromEvent(this.socket, 'thinking');
-    fromEvent(this.socket, 'transcription')
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(r => {
-        this.resetInterval();
-        this.queryInput.nativeElement.value = r;
-      });
-
     this.speakingInterval = IntervalObservable.create(2000);
   }
 
@@ -74,7 +66,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   startSpeaking() {
-    this.speechService.start();
+    this.speechService.start(this.user, this.sessionId);
     this.startInterval();
   }
 
@@ -94,6 +86,17 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.user = user;
     this.setConversationStream();
+    this.thinking$ = fromEvent(this.socket, `thinking_${user._id}`);
+
+    console.log(`Listening on: transcription_${user._id}_${this.sessionId}`);
+    fromEvent(this.socket, `transcription_${user._id}_${this.sessionId}`)
+      .pipe(
+        distinctUntilChanged()
+      )
+      .subscribe(r => {
+        this.resetInterval();
+        this.queryInput.nativeElement.value = r;
+      });
   }
 
   private setConversationStream() {

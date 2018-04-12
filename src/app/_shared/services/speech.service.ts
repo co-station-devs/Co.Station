@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
+import { ChatService } from '../../chat/services/chat.service';
+import { User } from '../../user/models/user.model';
 
 declare let window: any;
 declare let URL: any;
@@ -15,8 +17,12 @@ export class SpeechService {
   private running: boolean;
   private chunks = [];
   private audioContext;
+  private activeUser: User;
+  private sessionId: Number;
 
-  constructor() {
+  constructor(
+    private chatService: ChatService
+  ) {
     this.audioContext = new AudioContext();
     this.socket = io.connect(environment.api_url);
 
@@ -27,7 +33,10 @@ export class SpeechService {
   }
 
 
-  start() {
+  start(user: User, sessionId) {
+    this.activeUser = user;
+    this.sessionId = sessionId;
+    this.socket.emit('start_speech', { user: user._id, session: this.sessionId });
     // Start recording
     this.chunks = [];
     this.recorder.start(500);
@@ -37,6 +46,7 @@ export class SpeechService {
     if (this.recorder.state !== 'inactive') {
       this.recorder.stop();
     }
+    this.socket.emit('stop_speech', { user: this.activeUser._id, session: this.sessionId });
   }
 
   private processAudioFragment(e) {
@@ -57,7 +67,10 @@ export class SpeechService {
             if (!buffer) {
               console.log('buffer is empty!');
             }
-            this.socket.emit('speech', { blob: this.audioBufferToWav(buffer) });
+            this.socket.emit(`speech_${this.activeUser._id}_${this.sessionId}`, {
+              blob: this.audioBufferToWav(buffer),
+              data: { user: this.activeUser._id, session: this.sessionId }
+            });
           },
           (error) => {
             console.error(error);

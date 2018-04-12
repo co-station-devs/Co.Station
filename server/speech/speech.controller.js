@@ -1,19 +1,31 @@
-const translateService = require('./speech.service');
+const speechService = require('./speech.service');
 
 module.exports = function(io) {
-  let translateController = {};
+  let speechController = {};
+  let activeSpeaking = [];
 
   console.log('Setting up socket for speech');
 
   io.on('connection', function(socket) {
-    socket.on('speech', translateController.translate);
+    socket.on('start_speech', startSpeech);
+    socket.on('stop_speech', stopSpeech);
+
+    function startSpeech(data) {
+      console.info(`Starting speech on: speech_${data.user}_${data.session}`);
+      socket.on(`speech_${data.user}_${data.session}`, speechController.transcript);
+    }
+
+    function stopSpeech(userId) {
+      // console.log(activeSpeaking, userId);
+      // activeSpeaking[userId] ()
+    }
   });
 
 
-  translateController.translate = async function(blob) {
+  speechController.transcript = async function(input) {
     try {
-      const transcription = await translateService.translate(blob);
-      io.emit('transcription', transcription);
+      const transcription = await speechService.transcript(input.blob);
+      io.emit(`transcription_${input.data.user}_${input.data.session}`, transcription);
     } catch (e) {
       console.error('Error transcripting audio', e);
       throw Error('Error transcripting audio');
@@ -21,6 +33,6 @@ module.exports = function(io) {
 
   };
 
-  return translateController;
+  return speechController;
 
 };
