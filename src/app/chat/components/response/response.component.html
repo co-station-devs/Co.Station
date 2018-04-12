@@ -1,4 +1,4 @@
-<div [ngClass]="{'assistant': assistant}">
+<div [ngClass]="{'assistant': assistant}" *ngIf="!finalMessage">
   <div class="date">{{message.date_created | date:'short' }}</div>
   <div class="message" (click)="extended = !extended">
     <p>{{message.message}}</p>
@@ -8,3 +8,5 @@
     <pre>{{payload | json: 2}}</pre>
   </div>
 </div>
+
+<app-final-answer *ngIf="finalMessage" [params]="payload.outputContexts[0].parameters.fields"></app-final-answer>

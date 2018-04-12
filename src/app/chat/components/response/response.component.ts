@@ -10,6 +10,7 @@ export class ResponseComponent implements OnInit {
   @Input() extended = false;
   assistant: boolean;
   payload: any;
+  finalMessage: boolean;
 
   constructor() {
   }
@@ -18,6 +19,8 @@ export class ResponseComponent implements OnInit {
     this.assistant = this.message.type === 0;
     if (this.message.payload) {
       this.payload = JSON.parse(this.message.payload);
+
+      this.finalMessage = (this.payload) ? (this.payload.intent) ? this.payload.intent.displayName === 'tc_finish' : false : false;
     }
   }
 }

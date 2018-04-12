@@ -5,11 +5,12 @@ import { ChatService } from './services/chat.service';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../_shared/shared.module';
 import { ResponseComponent } from './components/response/response.component';
+import { FinalAnswerComponent } from './components/final-answer/final-answer.component';
 
 const routes: Routes = [{ path: '', component: ChatComponent }];
 
 @NgModule({
-  declarations: [ChatComponent, ResponseComponent],
+  declarations: [ChatComponent, ResponseComponent, FinalAnswerComponent],
   imports: [SharedModule, RouterModule.forRoot(routes)],
   providers: [ChatService],
   exports: [RouterModule]
