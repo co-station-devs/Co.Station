@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   amei: Number,
   hrx: {type: mongoose.Schema.Types.ObjectId, ref: 'Hrx'},
   showExtra: Boolean,
+  showTranslations: Boolean,
 
   date_created: Date,
   date_modified: Date

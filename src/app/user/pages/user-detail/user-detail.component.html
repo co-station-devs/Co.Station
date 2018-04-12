@@ -24,17 +24,17 @@
     <mat-tab label="Info">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <mat-card-title>User Info</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <mat-list>
             <mat-list-item> email: {{ user.email}}</mat-list-item>
             <div *ngIf="user.hrx">
-              <mat-list-item> Ancienniteit: {{ user.hrx.seniorityYears}}</mat-list-item>
-              <mat-list-item> Ancienniteit Employer: {{ user.hrx.seniorityEmployerYears}}</mat-list-item>
+              <mat-list-item> Ancienniteit: {{ user.hrx.seniorityYears | date}}</mat-list-item>
+              <mat-list-item> Ancienniteit Employer: {{ user.hrx.seniorityEmployerYears| date}}</mat-list-item>
               <mat-list-item> Postcode: {{ user.hrx.postalCode}}</mat-list-item>
               <mat-list-item> Status: {{ user.hrx.status}}</mat-list-item>
+              <mat-list-item> Age: {{ user.hrx.age}}</mat-list-item>
             </div>
           </mat-list>
         </mat-card-content>

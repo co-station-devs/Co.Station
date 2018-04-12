@@ -1,5 +1,6 @@
 const User = require('./user.model');
 const UserService = require('./user.service');
+const HrxService = require('../hrx/hrx.service');
 
 
 module.exports = function(io) {
@@ -47,8 +48,17 @@ module.exports = function(io) {
     // Req.Body contains the form submit values.
     try {
 
+      if(req.body.hrx){
+        req.body.hrx.firstName = req.body.firstName;
+        req.body.hrx.lastName = req.body.lastName;
+        req.body.hrx.amei = req.body.amei;
+        const hrx = await HrxService.create(req.body.hrx);
+        req.body.hrx = hrx;
+      }
       // Calling the Service function with the new object from the Request Body
       const createdModel = await UserService.create(req.body);
+
+
       return res.status(201).json({ status: 201, data: createdModel, message: `Succesfully Created User` });
     } catch (e) {
 
@@ -75,6 +85,11 @@ module.exports = function(io) {
 
     if (!req.body._id) {
       return res.status(400).json({ status: 400., message: 'Id must be present' });
+    }
+
+    if(req.body.hrx){
+      req.body.hrx.amei = req.body.amei;
+      req.body.hrx = await HrxService.update(req.body.hrx);
     }
 
     const id = req.body._id;

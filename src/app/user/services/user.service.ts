@@ -1,10 +1,12 @@
 import { User } from '../models/user.model';
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/map';
 import { BaseService } from '../../_shared/services/base.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { assign } from 'rxjs/util/assign';
+import { Hrx } from '../models/hrx.model';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -15,4 +17,11 @@ export class UserService extends BaseService<User> {
     super(http);
   }
 
+
+  read(id: string): Observable<User> {
+    return super.read(id).map(x => {
+      x.hrx = assign(new Hrx(), x.hrx);
+      return x;
+    });
+  }
 }

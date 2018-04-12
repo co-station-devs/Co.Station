@@ -5,10 +5,10 @@ const mongoosePaginate = require('mongoose-paginate');
 const hrxSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
-  age: Number,
+  birthDate: Date,
   amei: Number,
-  seniorityYears: Number,
-  seniorityEmployerYears: Number,
+  seniorityYears: Date,
+  seniorityEmployerYears: Date,
   postalCode: Number,
   status: {
     type: String,

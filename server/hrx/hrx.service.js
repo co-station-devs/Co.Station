@@ -74,6 +74,10 @@ exports.update = async function update(hrx) {
   oldModel.seniorityYears = hrx.seniorityYears;
   oldModel.status = hrx.status;
   oldModel.postalCode = hrx.postalCode;
+  oldModel.birthDate = hrx.birthDate;
+  oldModel.amei = hrx.amei;
+
+
 
   oldModel.date_modified = new Date();
 

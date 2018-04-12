@@ -10,6 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserModule } from './user/user.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChatModule } from './chat/chat.module';
+import { MomentModule } from 'angular2-moment';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MomentModule,
     MaterialModule,
     ChatModule,
     RouterModule.forRoot(routes, { enableTracing: false }),
