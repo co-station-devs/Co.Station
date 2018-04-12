@@ -12,7 +12,7 @@ exports.list = async function(query, params) {
   // Try Catch the awaited promise to handle the error
 
   try {
-    return await User.paginate(query, options);
+    return await User.Model.paginate(query, options);
   } catch (e) {
     // return a Error message describing the reason
     throw Error('Error while Paginating Users');
@@ -40,7 +40,7 @@ exports.read = async function read(id) {
   // Try Catch the awaited promise to handle the error
 
   try {
-    return await User.findOne({ _id: id }).populate('hrx');
+    return await User.Model.findOne({ _id: id }).populate('hrx');
   } catch (e) {
     // return a Error message describing the reason
     throw Error('Error while Paginating Users');
@@ -53,7 +53,7 @@ exports.update = async function update(user) {
 
   try {
     //Find the old User Object by the Id
-    oldModel = await User.findById(id);
+    oldModel = await User.Model.findById(id);
   } catch (e) {
     throw Error('Error occured while Finding the User');
   }
@@ -63,13 +63,7 @@ exports.update = async function update(user) {
     return false;
   }
 
-  oldModel.email = user.email;
-  oldModel.firstName = user.firstName;
-  oldModel.lastName = user.lastName;
-  oldModel.amei = user.amei;
-  oldModel.showExtra = user.showExtra;
-  oldModel.showTranslations = user.showTranslations;
-
+  oldModel = User.updateUser(oldModel, user);
   oldModel.date_modified = new Date();
 
   try {
@@ -85,7 +79,7 @@ exports.del = async function(id) {
   // Delete the User
   try {
     ``;
-    const deleted = await User.remove({ _id: id });
+    const deleted = await User.Model.remove({ _id: id });
     if (deleted.result.n === 0) {
       throw Error('User Could not be deleted');
     }
