@@ -39,17 +39,17 @@
       </mat-form-field>
 
       <mat-form-field class="fullWidth">
-        <input matInput [matDatepicker]="seniorityYears" placeholder="Choose a date"
+        <input matInput [matDatepicker]="startWorkingDate" placeholder="Choose a date"
                [(ngModel)]="user.hrx.startWorkingDate">
-        <mat-datepicker-toggle matSuffix [for]="seniorityYears"></mat-datepicker-toggle>
-        <mat-datepicker #seniorityYears></mat-datepicker>
+        <mat-datepicker-toggle matSuffix [for]="startWorkingDate"></mat-datepicker-toggle>
+        <mat-datepicker #startWorkingDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="fullWidth">
-        <input matInput [matDatepicker]="seniorityEmployerYears" placeholder="Werkervaring bij ArcelorMittal"
+        <input matInput [matDatepicker]="startWorkingAtAmDate" placeholder="Werkervaring bij ArcelorMittal"
                [(ngModel)]="user.hrx.startWorkingAtAmDate">
-        <mat-datepicker-toggle matSuffix [for]="seniorityEmployerYears"></mat-datepicker-toggle>
-        <mat-datepicker #seniorityEmployerYears></mat-datepicker>
+        <mat-datepicker-toggle matSuffix [for]="startWorkingAtAmDate"></mat-datepicker-toggle>
+        <mat-datepicker #startWorkingAtAmDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="fullWidth">
