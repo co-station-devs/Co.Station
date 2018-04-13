@@ -18,7 +18,7 @@ exports.list = async function(query, params) {
 exports.create = async function(user) {
 
   // Creating a new Mongoose Object by using the new keyword
-  const newModel = new User(user);
+  const newModel = new User.Model(user);
   newModel.date_created = new Date();
 
   // Saving the User
