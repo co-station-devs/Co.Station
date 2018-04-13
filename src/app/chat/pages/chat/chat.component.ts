@@ -114,7 +114,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private setConversationStream() {
     // Get our initial data
-    const initialData = this.chatService.list({ user: this.user._id, sort: 'date_created', direction: 1 }).map(x => x.docs);
+    const initialData = this.chatService.list({ user: this.user._id}).map(x => x.docs);
     // Grab our socket stream
     const socketIO = fromEvent(this.socket, `chatAdded_${this.user._id}`);
     // Combine our initial Data with the socket data into conversation stream

@@ -15,9 +15,9 @@ module.exports = function(io) {
     // Check the existence of the query parameters, If the exists doesn't exists assign a default value
     const filter = {
       page: req.query.page ? parseInt(req.query.page) + 1 : 1, // Front works 0 based, backend 1 based
-      limit: req.query.limit ? parseInt(req.query.limit) : 10,
-      sort: req.query.sort ? {} : null,
-      direction: req.query.direction ? req.query.direction : null
+      limit: req.query.limit ? parseInt(req.query.limit) : 10000,
+      sort: {date_created: 1},
+      direction: req.query.direction ? +req.query.direction : 1
     };
 
     if (req.query.sort) {
