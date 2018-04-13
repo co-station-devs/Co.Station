@@ -11,7 +11,7 @@ module.exports = function(io) {
     socket.on('stop_speech', stopSpeech);
 
     function startSpeech(data) {
-      console.info(`Starting speech on: speech_${data.User.Model}_${data.session}`);
+      console.info(`Starting speech on: speech_${data.user}_${data.session}`);
       socket.on(`speech_${data.user}_${data.session}`, speechController.transcript);
     }
 

@@ -12,18 +12,18 @@ describe('[Shallow] ResponseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      importsL [MaterialModule],
-      declarations: [ ResponseComponent, FinalAnswerComponent ],
+      imports: [MaterialModule],
+      declarations: [ResponseComponent, FinalAnswerComponent],
       // Tells the compiler not to error on unknown elements and attributes: shallow testing
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ResponseComponent);
     component = fixture.componentInstance;
-    component.message = {type: ChatType.assistant};
+    component.message = { type: ChatType.assistant };
     fixture.detectChanges();
   });
 
