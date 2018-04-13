@@ -21,11 +21,11 @@ export class FinalAnswerComponent implements OnInit {
     this.parameters = ParamsParser.createFrom(this.params);
     console.log(this.parameters);
     this.timeCreditService.find({
-      type: 20,
-      motivation: 'Type1.Child8j',
-      age: 0,
-      working: 5,
-      workingAm: 2
+      type: this.parameters.TimeSystem,
+      motivation: this.parameters.MotifType,
+      age: this.parameters.age,
+      working: this.parameters.workingTime,
+      workingAm: this.parameters.workingTimeAm
     }).subscribe(r => {
       this.timecredit = r;
       this.checkMinCarreer();
@@ -34,7 +34,7 @@ export class FinalAnswerComponent implements OnInit {
   }
 
   private checkMinCarreer() {
-    const working = this.timecredit.minCareerAM - this.parameters.workingTimeAm ;
+    const working = this.timecredit.minCareerAM - this.parameters.workingTimeAm;
     if (working > 0) {
       this.messages.push(`Je werkt wel nog niet lang genoeg voor ArcelorMittal, je zal nog ${working} jaar moeten werken`);
     }
