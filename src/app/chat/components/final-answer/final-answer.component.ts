@@ -13,7 +13,6 @@ export class FinalAnswerComponent implements OnInit {
   timecredit;
   messages: String[] = [];
 
-
   constructor(private timeCreditService: TimeCreditService) {
   }
 
@@ -27,20 +26,24 @@ export class FinalAnswerComponent implements OnInit {
       working: this.parameters.workingTime,
       workingAm: this.parameters.workingTimeAm
     }).subscribe(r => {
-      this.timecredit = r;
+
+
+      this.timecredit = r[0];
+      console.log(this.timecredit);
       this.checkMinCarreer();
     });
 
   }
 
   private checkMinCarreer() {
-    const working = this.timecredit.minCareerAM - this.parameters.workingTimeAm;
-    if (working > 0) {
-      this.messages.push(`Je werkt wel nog niet lang genoeg voor ArcelorMittal, je zal nog ${working} jaar moeten werken`);
+    const workingAm = this.timecredit.minCareerAM - this.parameters.workingTimeAm;
+    const working = this.timecredit.minCareer - this.parameters.workingTime;
+    if (workingAm > 0) {
+      this.messages.push(`Je werkt wel nog niet lang genoeg voor ArcelorMittal, je zal nog ${workingAm} jaar moeten werken`);
     }
 
-    if (this.parameters.workingTime < this.timecredit.minCareer) {
-      this.messages.push('You arn\'t working long enough');
+    if (working > 0) {
+      this.messages.push(`Je moet nog ${working} jaar werken voor dit van toepassing is`);
     }
   }
 
