@@ -25,5 +25,20 @@ module.exports = function(io) {
     }
   };
 
+  timeCreditController.seed = async function(req, res, next) {
+    try {
+      const item = await TimeCreditService.initial();
+      return res.status(200).json({
+        status: 200,
+        message: `Succesfully seeded TimeCredit`
+      });
+    } catch (e) {
+      return res.status(400).json({
+        status: 400,
+        message: e.message
+      });
+    }
+  };
+
   return timeCreditController;
 };
