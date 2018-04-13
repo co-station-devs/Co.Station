@@ -35,6 +35,7 @@ module.exports = function(io) {
       return res.status(200).json({ status: 200, data: items, message: `Succesfully Users Recieved` });
 
     } catch (e) {
+      console.error(e);
 
       //Return an Error Response Message with Code and the Error Message.
 
@@ -61,6 +62,7 @@ module.exports = function(io) {
 
       return res.status(201).json({ status: 201, data: createdModel, message: `Succesfully Created User` });
     } catch (e) {
+      console.error(e);
 
       //Return an Error Response Message with Code and the Error Message.
 
@@ -98,6 +100,7 @@ module.exports = function(io) {
       const updatedUser = await UserService.update(req.body);
       return res.status(200).json({ status: 200, data: updatedUser, message: `Succesfully Updated User` });
     } catch (e) {
+      console.error(e);
       return res.status(400).json({ status: 400., message: e.message });
     }
   };
@@ -109,6 +112,7 @@ module.exports = function(io) {
       const deleted = await UserService.delete(id);
       return res.status(204).json({ status: 204, message: `Succesfully User Deleted` });
     } catch (e) {
+      console.error(e);
       return res.status(400).json({ status: 400, message: e.message });
     }
   };
