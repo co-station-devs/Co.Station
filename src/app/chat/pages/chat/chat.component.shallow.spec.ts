@@ -10,6 +10,7 @@ import { of } from 'rxjs/observable/of';
 import { ResponseComponent } from '../../components/response/response.component';
 import { SpeechService } from '../../../_shared/services/speech.service';
 import { FinalAnswerComponent } from '../../components/final-answer/final-answer.component';
+import { RouterTestingModule } from '@angular/router/testing';
 window.AudioContext = jest.fn().mockImplementation(() => {
   return {};
 });
@@ -27,7 +28,7 @@ describe('[Shallow] ChatComponent', () => {
       }));
       TestBed.configureTestingModule({
         providers: [ChatService, SpeechService],
-        imports: [MaterialModule, HttpClientModule, BrowserAnimationsModule ],
+        imports: [MaterialModule, HttpClientModule, BrowserAnimationsModule,RouterTestingModule.withRoutes([]) ],
         declarations: [ChatComponent, ResponseComponent, FinalAnswerComponent]
       }).compileComponents();
 
