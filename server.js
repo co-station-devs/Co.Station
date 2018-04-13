@@ -73,6 +73,7 @@ const translateController = require('./server/speech/speech.controller')(io);
 app.use('/api/v1/users', require('./server/user/users.route').users(io));
 app.use('/api/v1/chats', require('./server/chat/chat.route').chats(io));
 app.use('/api/v1/hrx', require('./server/hrx/hrx.route').hrx(io));
+app.use('/api/v1/timecredit', require('./server/timecredit/timecredit.route').timecredit(io));
 
 // resources
 app.use(express.static(path.join(__dirname, 'dist')));

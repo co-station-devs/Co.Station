@@ -1,0 +1,11 @@
+<mat-card *ngIf="timecredit">
+  {{parameters.FirstName}} heeft succesvol de aanvraag gedaan
+
+  <br/>
+  Het ziet er naar uit dat je tussen {{timecredit.Comp5Min | currency: 'EUR'}} en {{timecredit.Comp5Plus | currency:
+  'EUR'}} zal krijgen
+
+  <mat-nav-list>
+    <mat-list-item *ngFor="let msg of messages">{{msg}}</mat-list-item>
+  </mat-nav-list>
+</mat-card>

@@ -87,7 +87,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this.user = user;
     this.setConversationStream();
     this.thinking$ = fromEvent(this.socket, `thinking_${user._id}`);
-
     console.log(`Listening on: transcription_${user._id}_${this.sessionId}`);
     fromEvent(this.socket, `transcription_${user._id}_${this.sessionId}`)
       .pipe(
