@@ -9,9 +9,10 @@ export class ParamsParser {
   LastName: string;
   PostalCode: Number;
   StartWorkingAtAmDate: Date;
-  birthDate: Date;
+  BirthDate: Date;
   StartWorkingDate: Date;
-  timeSystem: number;
+  TimeSystem: number;
+  MotifType: string;
 
 
   get workingTime(): number {
@@ -23,7 +24,7 @@ export class ParamsParser {
   }
 
   get age(): number {
-    return moment().diff(this.birthDate, 'years', false);
+    return moment().diff(this.BirthDate, 'years', false);
   }
 
   static createFrom(input): ParamsParser {

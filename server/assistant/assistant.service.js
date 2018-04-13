@@ -5,7 +5,6 @@ const dialogflow = require('dialogflow');
 
 // Imports the Google Cloud client library
 const Translate = require('@google-cloud/translate');
-
 let translate;
 // Instantiates a client
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
@@ -36,14 +35,14 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
 
 const sessionBase = sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId);
 
-exports.process = async function(params, userId, userLang) {
+exports.process = async function (params, userId, userLang) {
   const query = params.message;
-// Define session path
+  // Define session path
   const sessionPath = `${sessionBase}-${userId}`;
 
   // Translate input
 
-  const translatedInput = await translate.translate(query, {to: 'en', from: userLang});
+  const translatedInput = await translate.translate(query, { to: 'en', from: userLang });
   console.log(`Translating ${query}(${userLang}) to ${JSON.stringify(translatedInput)}`);
 
 
@@ -57,6 +56,7 @@ exports.process = async function(params, userId, userLang) {
       }
     }
   };
+
   const intentResult = await sessionClient.detectIntent(request);
   // Get first result
   const firstIntentResult = intentResult[0].queryResult;
@@ -66,7 +66,7 @@ exports.process = async function(params, userId, userLang) {
   console.log(`  Response: ${firstIntentResult.fulfillmentText}`);
   console.log(firstIntentResult.intent ? `  Intent: ${firstIntentResult.intent.displayName}` : `  No intent matched.`);
 
-// translate output back to nl
+  // translate output back to nl
   const translatedOutput = await translate.translate(firstIntentResult.fulfillmentText, 'nl');
 
 
