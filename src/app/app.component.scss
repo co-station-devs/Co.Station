@@ -1,5 +1,8 @@
 @import '~@angular/material/theming';
-@import '_shared/styles/variables';
+
+$layout-breakpoint-sm: 959px !default;
+$secondary-color: rgba(78, 78, 78, 0.74) !default;
+$sidebar-width: 252px !default;
 
 h1 {
   margin-left: 8px;
@@ -13,6 +16,58 @@ mat-sidenav {
   min-width: $sidebar-width;
   &.mat-drawer {
     background: transparent;
+  }
+}
+
+.search {
+  margin-left: 24px;
+
+  .search-bar {
+    background-color: white;
+    padding: 7px 5px 4px;
+    // position: relative;
+    vertical-align: middle;
+    display: flex;
+
+    @media (max-width: $layout-breakpoint-sm) {
+      width: 100%;
+    }
+
+    input {
+      width: calc(100% - 50px);
+      box-sizing: border-box;
+      background-color: transparent;
+      font-size: 0.85em;
+      border: none;
+      padding-left: 12px;
+      outline: none;
+      color: $secondary-color;
+
+      ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: $secondary-color;
+      }
+      ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: $secondary-color;
+      }
+      :-ms-input-placeholder {
+        /* IE 10+ */
+        color: $secondary-color;
+      }
+      :-moz-placeholder {
+        /* Firefox 18- */
+        color: $secondary-color;
+      }
+    }
+
+    mat-icon {
+      color: $secondary-color;
+      font-size: 29px;
+      position: relative;
+      right: -7px;
+      top: -1px;
+    }
   }
 }
 

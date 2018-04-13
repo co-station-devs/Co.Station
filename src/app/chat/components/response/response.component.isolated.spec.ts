@@ -18,7 +18,7 @@ describe('[Isolated] ResponseComponent', () => {
     // Arrange
     component.message = {
       type: ChatType.assistant,
-      payload: '{"fulfillmentMessages": "Hello"}'
+      payload: '{"fulfillmentText": "Hello"}'
     };
 
 
@@ -26,7 +26,7 @@ describe('[Isolated] ResponseComponent', () => {
     component.ngOnInit();
 
     // Assert
-    expect(component.payload.fulfillmentMessages).toEqual('Hello');
+    expect(component.payload.fulfillmentText).toEqual('Hello');
   });
 
   test('shouldn\'t parse json', () => {

@@ -24,7 +24,7 @@ describe('[Isolated] HomeComponent', () => {
   } as UserService;
 
   beforeEach(() => {
-    component = new AppComponent(mediaMock, chatService, userService);
+    component = new AppComponent(mediaMock, {}, chatService, userService);
   });
 
   it('should create', () => {

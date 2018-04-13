@@ -3,8 +3,10 @@ import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs/Subscription';
 import { MatSidenav } from '@angular/material';
 import { UserService } from './user/services/user.service';
-import { User } from './user/models/user.model';
 import { ChatService } from './chat/services/chat.service';
+import { switchMap } from 'rxjs/operators';
+import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,17 +18,18 @@ import { ChatService } from './chat/services/chat.service';
 })
 export class AppComponent implements OnInit {
   @ViewChild('sideMenu') sideMenu: MatSidenav;
-
   navItems = [{ name: 'Users', route: '/user' }];
-
   isMobileView: boolean;
   subscriptionMedia: Subscription;
+  private searchInputValue: string;
 
   constructor(
     private media: ObservableMedia,
+    private router: Router,
     private chatService: ChatService,
     private userService: UserService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isMobileView = this.media.isActive('xs') || this.media.isActive('sm');
@@ -45,5 +48,24 @@ export class AppComponent implements OnInit {
     if (this.isMobileView) {
       this.sideMenu.close();
     }
+  }
+
+  /**
+   * Function which triggers the search app depending on the confugured SearchClientUri in config.xml
+   *
+   * @param {*} event
+   * @memberof TopbarComponent
+   */
+  onSearch(event: any) {
+    this.chatService.activeUser$
+      .pipe(
+        switchMap(r => {
+          return this.chatService.checkIntent({ query: this.searchInputValue, user: `${r._id}_${moment().format('x')}`, lang: r.lang });
+        })
+      )
+      .subscribe(r => {
+        this.router.navigate([JSON.parse(r.payload).intent ? '/chat' : '/search'], {queryParams: {query: this.searchInputValue}});
+        this.searchInputValue = '';
+      });
   }
 }

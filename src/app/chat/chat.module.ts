@@ -8,7 +8,9 @@ import { ResponseComponent } from './components/response/response.component';
 import { FinalAnswerComponent } from './components/final-answer/final-answer.component';
 import { TimeCreditService } from '../user/services/time-credit.service';
 
-const routes: Routes = [{ path: '', component: ChatComponent }];
+const routes: Routes = [
+  { path: 'chat', component: ChatComponent }
+];
 
 @NgModule({
   declarations: [ChatComponent, ResponseComponent, FinalAnswerComponent],

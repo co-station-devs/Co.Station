@@ -237,7 +237,6 @@ exports.initial = async function() {
 
 
 exports.find = async function(name) {
-  try {
     let query = {
       motivation: name.motivation,
       minCareer: { $lte: name.working },
@@ -247,8 +246,4 @@ exports.find = async function(name) {
 
 
     return await TimeCredit.findOne(query);
-  } catch (e) {
-    // return a Error message describing the reason
-    throw Error('Error while Paginating Hrx');
-  }
 };
