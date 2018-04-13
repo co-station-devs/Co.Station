@@ -2,8 +2,13 @@ import { NgModule } from '@angular/core';
 import { IntranetComponent } from './intranet/intranet.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../_shared/shared.module';
+import { SearchComponent } from './search/search.component';
 
-const routes: Routes = [{ path: '', component: IntranetComponent }];
+const routes: Routes = [
+  { path: '', component: IntranetComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'search/:query', component: SearchComponent }
+];
 
 
 @NgModule({
@@ -11,7 +16,7 @@ const routes: Routes = [{ path: '', component: IntranetComponent }];
     SharedModule,
     RouterModule.forRoot(routes)
   ],
-  declarations: [IntranetComponent]
+  declarations: [IntranetComponent, SearchComponent]
 })
 export class LandingModule {
 }

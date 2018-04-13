@@ -36,14 +36,13 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
 
 const sessionBase = sessionClient.sessionPath(process.env.GOOGLE_PROJECT_ID, sessionId);
 
-exports.process = async function(params, userId, userLang) {
-  const query = params.message;
+exports.process = async function(query, userId, userLang) {
 // Define session path
   const sessionPath = `${sessionBase}-${userId}`;
 
   // Translate input
 
-  const translatedInput = await translate.translate(query, {to: 'en', from: userLang});
+  const translatedInput = await translate.translate(query, { to: 'en', from: userLang });
   console.log(`Translating ${query}(${userLang}) to ${JSON.stringify(translatedInput)}`);
 
 
@@ -63,7 +62,7 @@ exports.process = async function(params, userId, userLang) {
 
   console.log('Detected intent');
   console.log(`  Query: ${firstIntentResult.queryText}`);
-  console.log(`  Response: ${firstIntentResult.fulfillmentText}`);
+  console.log(`  Response: ${firstIntentResult.fulfillmentText} - ${sessionPath}`);
   console.log(firstIntentResult.intent ? `  Intent: ${firstIntentResult.intent.displayName}` : `  No intent matched.`);
 
 // translate output back to nl
@@ -73,7 +72,7 @@ exports.process = async function(params, userId, userLang) {
   // Prepare our response chat
   const result = {
     type: 0,
-    user: params.user,
+    user: userId,
     message: translatedOutput[0],
     originalMessage: firstIntentResult.fulfillmentText,
     payload: JSON.stringify(firstIntentResult)

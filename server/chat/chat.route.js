@@ -10,6 +10,7 @@ module.exports.chats = function (io) {
   chats.get('/:id', ChatController.read);
 
   chats.post('/', ChatController.create);
+  chats.post('/check', ChatController.isChat);
 
   chats.put('/', ChatController.update);
 

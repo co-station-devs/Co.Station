@@ -11,12 +11,8 @@ exports.list = async function(query, params) {
 
   // Try Catch the awaited promise to handle the error
 
-  try {
-    return await User.Model.paginate(query, options);
-  } catch (e) {
-    // return a Error message describing the reason
-    throw Error('Error while Paginating Users');
-  }
+  return await User.Model.paginate(query, options);
+
 };
 
 exports.create = async function(user) {
@@ -25,38 +21,26 @@ exports.create = async function(user) {
   const newModel = new User(user);
   newModel.date_created = new Date();
 
-  try {
-    // Saving the User
-    return await newModel.save();
+  // Saving the User
+  return await newModel.save();
 
-  } catch (e) {
 
-    // return a Error message describing the reason
-    throw Error('Error while Creating User');
-  }
 };
 
 exports.read = async function read(id) {
   // Try Catch the awaited promise to handle the error
 
-  try {
-    return await User.Model.findOne({ _id: id }).populate('hrx');
-  } catch (e) {
-    // return a Error message describing the reason
-    throw Error('Error while Paginating Users');
-  }
+  return await User.Model.findOne({ _id: id }).populate('hrx');
+
 };
 
 exports.update = async function update(user) {
   const id = user._id;
   let oldModel;
 
-  try {
-    //Find the old User Object by the Id
-    oldModel = await User.Model.findById(id);
-  } catch (e) {
-    throw Error('Error occured while Finding the User');
-  }
+  //Find the old User Object by the Id
+  oldModel = await User.Model.findById(id);
+
 
   // If no old User Object exists return false
   if (!oldModel) {
@@ -66,27 +50,21 @@ exports.update = async function update(user) {
   oldModel = User.updateUser(oldModel, user);
   oldModel.date_modified = new Date();
 
-  try {
-    return await oldModel.save();
-  } catch (e) {
-    throw Error('And Error occured while updating the User');
-  }
+  return await oldModel.save();
+
 };
 
 
 exports.del = async function(id) {
 
   // Delete the User
-  try {
-    ``;
-    const deleted = await User.Model.remove({ _id: id });
-    if (deleted.result.n === 0) {
-      throw Error('User Could not be deleted');
-    }
-    return deleted;
-  } catch (e) {
-    throw Error('Error Occured while Deleting the User');
+
+  const deleted = await User.Model.remove({ _id: id });
+  if (deleted.result.n === 0) {
+    throw Error('User Could not be deleted');
   }
+  return deleted;
+
 };
 
 

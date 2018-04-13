@@ -103,6 +103,33 @@ module.exports = function(io) {
     }
   };
 
+  chatController.isChat = async function(req, res, next) {
+
+    // Req.Body contains the form submit values.
+    try {
+      // Calling the Service function with the new object from the Request Body
+
+      const assistantAnswer = await AssistantService.process(req.body.query, req.body.user, req.body.lang);
+
+
+      return res.status(201).json({
+        status: 201,
+        data: assistantAnswer,
+        message: `Succesfully answerd from assistant`
+      });
+    } catch (e) {
+      console.error('Creating chat failed', e);
+
+      //Return an Error Response Message with Code and the Error Message.
+      return res.status(400).json({
+        status: 400,
+        message: `There were prolems getting answer from the assistnant`,
+        error: e
+      });
+    }
+  };
+
+
   chatController.read = async function(req, res, next) {
 
     const id = req.params.id;

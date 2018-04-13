@@ -13,7 +13,7 @@
         <mat-icon>search</mat-icon>
         <input flex
                [(ngModel)]="searchInputValue"
-               (keydown)="onSearch($event)"
+               (keydown.enter)="onSearch($event)"
                placeholder="What do you want to find?" />
       </div>
     </div>

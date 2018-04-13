@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { MatSidenav } from '@angular/material';
 import { UserService } from './user/services/user.service';
 import { ChatService } from './chat/services/chat.service';
+import { switchMap } from 'rxjs/operators';
+import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,15 +18,14 @@ import { ChatService } from './chat/services/chat.service';
 })
 export class AppComponent implements OnInit {
   @ViewChild('sideMenu') sideMenu: MatSidenav;
-  private searchInputValue: string;
-
   navItems = [{ name: 'Users', route: '/user' }];
-
   isMobileView: boolean;
   subscriptionMedia: Subscription;
+  private searchInputValue: string;
 
   constructor(
     private media: ObservableMedia,
+    private router: Router,
     private chatService: ChatService,
     private userService: UserService
   ) {
@@ -55,5 +57,14 @@ export class AppComponent implements OnInit {
    * @memberof TopbarComponent
    */
   onSearch(event: any) {
+    this.chatService.activeUser$
+      .pipe(
+        switchMap(r => {
+          return this.chatService.checkIntent({ query: this.searchInputValue, user: `${r._id}_${moment().format('x')}`, lang: r.lang });
+        })
+      )
+      .subscribe(r => {
+        this.router.navigate([JSON.parse(r.payload).intent ? '/chat' : '/search', this.searchInputValue]);
+      });
   }
 }
