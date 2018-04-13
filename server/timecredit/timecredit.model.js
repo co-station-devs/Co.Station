@@ -11,7 +11,7 @@ const timeCreditSchema = new mongoose.Schema({
   minAge: Number,
   minCareer: Number,
   minCareerAM: Number,
-  MaxMonths: Number,
+  maxMonths: Number,
   minMonths: Number,
   Comp5Min: Number,
   Comp5Plus: Number,

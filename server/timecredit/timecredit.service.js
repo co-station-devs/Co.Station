@@ -6,7 +6,7 @@ exports.initial = async function() {
     minAge: 0,
     minCareer: 5,
     minCareerAM: 2,
-    MaxMonths: 60,
+    maxMonths: 60,
     minMonths: 6,
     Comp5Min: 158.38,
     Comp5Plus: 204.39
@@ -16,7 +16,7 @@ exports.initial = async function() {
     minAge: 0,
     minCareer: 5,
     minCareerAM: 2,
-    MaxMonths: 24,
+    maxMonths: 24,
     minMonths: 6,
     Comp5Min: 240.51,
     Comp5Plus: 320.68
@@ -26,7 +26,7 @@ exports.initial = async function() {
     minAge: 0,
     minCareer: 5,
     minCareerAM: 2,
-    MaxMonths: 12,
+    maxMonths: 12,
     minMonths: 6,
     Comp5Min: 481.02,
     Comp5Plus: 641.37
@@ -69,7 +69,7 @@ exports.initial = async function() {
     motivation: 'Type1.Child8j',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 6,
     Comp5Min: 158.38,
     Comp5Plus: 204.39
@@ -80,7 +80,7 @@ exports.initial = async function() {
     motivation: 'Type1.Child8j',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 6,
     Comp5Min: 240.51,
     Comp5Plus: 320.68
@@ -91,7 +91,7 @@ exports.initial = async function() {
     motivation: 'Type1.Child8j',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 6,
     Comp5Min: 481.02,
     Comp5Plus: 641.37
@@ -103,7 +103,7 @@ exports.initial = async function() {
     motivation: 'Type1.Palliative',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 1,
     Comp5Min: 158.38,
     Comp5Plus: 204.39
@@ -114,7 +114,7 @@ exports.initial = async function() {
     motivation: 'Type1.Palliative',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 1,
     Comp5Min: 240.51,
     Comp5Plus: 320.68
@@ -125,7 +125,7 @@ exports.initial = async function() {
     motivation: 'Type1.Palliative',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 1,
     Comp5Min: 481.02,
     Comp5Plus: 641.37
@@ -138,7 +138,7 @@ exports.initial = async function() {
     motivation: 'Type1.Education',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 6,
     Comp5Min: 158.38,
     Comp5Plus: 204.39
@@ -149,7 +149,7 @@ exports.initial = async function() {
     motivation: 'Type1.Education',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 6,
     Comp5Min: 240.51,
     Comp5Plus: 320.68
@@ -160,7 +160,7 @@ exports.initial = async function() {
     motivation: 'Type1.Education',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 36,
+    maxMonths: 36,
     minMonths: 6,
     Comp5Min: 481.02,
     Comp5Plus: 641.37
@@ -172,7 +172,7 @@ exports.initial = async function() {
     motivation: 'Type2.Disabled',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 48,
+    maxMonths: 48,
     minMonths: 6,
     Comp5Min: 158.38,
     Comp5Plus: 204.39
@@ -183,7 +183,7 @@ exports.initial = async function() {
     motivation: 'Type2.Disabled',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 48,
+    maxMonths: 48,
     minMonths: 6,
     Comp5Min: 240.51,
     Comp5Plus: 320.68
@@ -194,7 +194,7 @@ exports.initial = async function() {
     motivation: 'Type2.Disabled',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 48,
+    maxMonths: 48,
     minMonths: 6,
     Comp5Min: 481.02,
     Comp5Plus: 641.37
@@ -206,7 +206,7 @@ exports.initial = async function() {
     motivation: 'Type2.ChildMed',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 48,
+    maxMonths: 48,
     minMonths: 1,
     Comp5Min: 158.38,
     Comp5Plus: 204.39
@@ -217,7 +217,7 @@ exports.initial = async function() {
     motivation: 'Type2.ChildMed',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 48,
+    maxMonths: 48,
     minMonths: 1,
     Comp5Min: 240.51,
     Comp5Plus: 320.68
@@ -228,7 +228,7 @@ exports.initial = async function() {
     motivation: 'Type2.ChildMed',
     minCareer: 0,
     minCareerAM: 2,
-    MaxMonths: 48,
+    maxMonths: 48,
     minMonths: 1,
     Comp5Min: 481.02,
     Comp5Plus: 641.37
@@ -236,14 +236,13 @@ exports.initial = async function() {
 };
 
 
-exports.find = async function(name) {
+exports.find = async function(properties) {
     let query = {
-      motivation: name.motivation,
-      minCareer: { $lte: name.working },
-      minCareerAM: { $lte: name.workingAm },
-      type: name.type,
+      motivation: properties.motivation || null,
+      minAge: {$lte: properties.age},
+      type: +properties.type,
     };
 
 
-    return await TimeCredit.findOne(query);
+    return await TimeCredit.find(query).sort({minAge: 1}).sort({minCareer: 1});
 };

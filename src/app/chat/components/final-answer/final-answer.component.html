@@ -1,11 +1,32 @@
 <mat-card *ngIf="timecredit">
-  {{parameters.FirstName}} heeft succesvol de aanvraag gedaan
+  <mat-card-content>
+    <p>Beste {{parameters.FirstName}},</p>
 
-  <br/>
-  Het ziet er naar uit dat je tussen {{timecredit.Comp5Min | currency: 'EUR'}} en {{timecredit.Comp5Plus | currency:
-  'EUR'}} zal krijgen
 
-  <mat-nav-list>
-    <mat-list-item *ngFor="let msg of messages">{{msg}}</mat-list-item>
-  </mat-nav-list>
+    <p>Tijdskrediet ({{parameters.TimeSystem}}%) voor u is <strong *ngIf="messages.length > 0">nog niet </strong>mogelijk. Op maandbasis zal je een bruto vergoeding kunnen
+      krijgen van {{ this.parameters.workingTimeAm > 5 ? timecredit.Comp5Min : timecredit.Comp5Plus| currency: 'EUR'}}.
+      Je moet dit tijdskrediet voor minimaal {{timecredit.minMonths}} maanden opnemen en kan dit doen voor een <span
+        *ngIf="timecredit.maxMonths">maximale
+        termij van {{timecredit.maxMonths}} maanden</span><span
+        *ngIf="!timecredit.maxMonths">ongelimiteerde termin</span> <br/><br/>
+      Het proces is als volgt:</p>
+
+
+    <ul>
+      <li>Van de RVA heb je een document nodig die beschrijft hoeveel tijdskrediet je reeds opgenomen hebt. Je kan dit
+        bekomen in een kantoor van de
+        <a [href]="'http://www.rva.be/nl/kantoren?search='+ parameters.PostalCode+'#results'">RVA</a>.
+      </li>
+      <li>Verzamel alle documenten die nodig zijn (medische attesten, of opleidingsattest) indien van toepassing</li>
+      <li>Dien je aanvraag in bij de personeelsdienst. Zij behandelen je vraag verder en nemen contact met je op
+        Meer informatie kan je hier terugvinden <a href="">PBH</a></li>
+    </ul>
+
+    <div class="remarks" *ngIf="messages.length > 0">
+      <h3>Opmerkingen</h3>
+      <ul>
+        <li *ngFor="let msg of messages">{{msg}}</li>
+      </ul>
+    </div>
+  </mat-card-content>
 </mat-card>

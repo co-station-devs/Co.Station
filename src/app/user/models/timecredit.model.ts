@@ -5,7 +5,7 @@ export class TimeCredit {
     private motivation?: number,
     private minCareer?: number,
     private minCareerAM?: number,
-    private MaxMonths?: number,
+    private maxMonths?: number,
     private minMonths?: number,
     private Comp5Min?: number,
     private Comp5Plus?: number
