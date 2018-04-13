@@ -1,5 +1,5 @@
 import { assign } from 'rxjs/util/assign';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export class ParamsParser {
   MaritalStatus: string;
