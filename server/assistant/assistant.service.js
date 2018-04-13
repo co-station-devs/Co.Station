@@ -47,23 +47,8 @@ exports.process = async function (params, userId, userLang) {
 
 
   // Create request
-  // const request = {
-  //   session: sessionPath,
-  //   queryInput: {
-  //     text: {
-  //       text: translatedInput[0],
-  //       languageCode: languageCode
-  //     }
-  //   }
-  // };
-
   const request = {
     session: sessionPath,
-    queryParams: {
-      payload: {
-        PostalCode: 5000
-      }
-    },
     queryInput: {
       text: {
         text: translatedInput[0],
