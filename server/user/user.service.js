@@ -22,7 +22,7 @@ exports.list = async function(query, params) {
 exports.create = async function(user) {
 
   // Creating a new Mongoose Object by using the new keyword
-  const newModel = new User(user);
+  const newModel = new User.Model(user);
   newModel.date_created = new Date();
 
   try {
@@ -30,7 +30,7 @@ exports.create = async function(user) {
     return await newModel.save();
 
   } catch (e) {
-
+    console.error(e);
     // return a Error message describing the reason
     throw Error('Error while Creating User');
   }
@@ -42,7 +42,8 @@ exports.read = async function read(id) {
   try {
     return await User.Model.findOne({ _id: id }).populate('hrx');
   } catch (e) {
-    // return a Error message describing the reason
+    console.error(e);
+// return a Error message describing the reason
     throw Error('Error while Paginating Users');
   }
 };
@@ -55,6 +56,7 @@ exports.update = async function update(user) {
     //Find the old User Object by the Id
     oldModel = await User.Model.findById(id);
   } catch (e) {
+    console.error(e);
     throw Error('Error occured while Finding the User');
   }
 
@@ -69,6 +71,7 @@ exports.update = async function update(user) {
   try {
     return await oldModel.save();
   } catch (e) {
+    console.error(e);
     throw Error('And Error occured while updating the User');
   }
 };
@@ -85,6 +88,7 @@ exports.del = async function(id) {
     }
     return deleted;
   } catch (e) {
+    console.error(e);
     throw Error('Error Occured while Deleting the User');
   }
 };
