@@ -64,7 +64,8 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe(r => {
-        this.router.navigate([JSON.parse(r.payload).intent ? '/chat' : '/search', this.searchInputValue]);
+        this.router.navigate([JSON.parse(r.payload).intent ? '/chat' : '/search'], {queryParams: {query: this.searchInputValue}});
+        this.searchInputValue = '';
       });
   }
 }

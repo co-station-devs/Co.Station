@@ -77,7 +77,7 @@ module.exports = function(io) {
 
       // Get assistant answer
       io.emit(`thinking_${user._id}`, true);
-      const assistantAnswer = await AssistantService.process(req.body, user._id, user.lang);
+      const assistantAnswer = await AssistantService.process(req.body.message, user._id, user.lang);
 
       // Create cards when needed
       // console.log(assistantAnswer);

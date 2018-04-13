@@ -9,8 +9,7 @@ import { FinalAnswerComponent } from './components/final-answer/final-answer.com
 import { TimeCreditService } from '../user/services/time-credit.service';
 
 const routes: Routes = [
-  { path: 'chat', component: ChatComponent },
-  { path: 'chat/:searched', component: ChatComponent }
+  { path: 'chat', component: ChatComponent }
 ];
 
 @NgModule({

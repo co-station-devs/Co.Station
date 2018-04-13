@@ -6,12 +6,13 @@ import * as io from 'socket.io-client';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { distinctUntilChanged, map, merge, scan, share, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, merge, scan, share, switchMap, takeUntil } from 'rxjs/operators';
 import { assign } from 'rxjs/util/assign';
 import { SpeechService } from '../../../_shared/services/speech.service';
 import { Subject } from 'rxjs/Subject';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import * as moment from 'moment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -36,12 +37,15 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private socket;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private chatService: ChatService,
     public speechService: SpeechService
   ) {
   }
 
   ngOnInit() {
+
     this.socket = io.connect(environment.api_url);
     this.speakingInterval = IntervalObservable.create(2000);
   }
@@ -53,7 +57,17 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.chatService.activeUser$.subscribe(u => this.changeUser(u));
+    this.chatService.activeUser$.pipe(switchMap(u => {
+      this.changeUser(u);
+      return this.route.queryParams;
+    })).subscribe(params => {
+      // Defaults to 0 if no query param provided.
+      this.queryInput.nativeElement.value = params['query'] || '';
+      if (this.queryInput.nativeElement.value.length > 0) {
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
+        this.addMessage();
+      }
+    });
   }
 
   addMessage() {
