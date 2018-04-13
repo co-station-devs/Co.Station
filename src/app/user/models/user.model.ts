@@ -8,6 +8,7 @@ export class User extends MongoBase {
     public email?: string,
     public firstName?: string,
     public lastName?: string,
+    public lang?: string,
     public showExtra?: boolean,
     public showTranslations?: boolean,
     public hrx?: Hrx,

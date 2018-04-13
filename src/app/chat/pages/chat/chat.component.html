@@ -2,7 +2,7 @@
 <div fxFlex fxFlexFill fxLayout="column">
   <div class="chat-conversation" #chat>
     <div *ngFor="let i of conversation$ | async" class="message">
-      <app-response *ngIf="!i.final" [message]="i" [extended]="user.showExtra"></app-response>
+      <app-response *ngIf="!i.final" [message]="i" [extended]="user.showExtra" [translated]="user.showTranslations"></app-response>
     </div>
   </div>
   <div class="chat-input">

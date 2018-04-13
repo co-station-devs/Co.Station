@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ResponseComponent implements OnInit {
   @Input() message;
   @Input() extended = false;
+  @Input() translated = false;
   assistant: boolean;
   payload: any;
   finalMessage: boolean;
